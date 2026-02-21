@@ -1,4 +1,4 @@
-import { ArrowRight, Instagram } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import heroBgImage from '../assets/media/IMG_3091.jpg';
 
 export default function Hero() {
@@ -10,19 +10,6 @@ export default function Hero() {
     <section className="hero-section">
       <div className="hero-overlay"></div>
       <div className="hero-content container animate-fade-in">
-        <header className="hero-header">
-          <h1 className="brand-title">ARROWHEAD</h1>
-          <a
-            href="https://instagram.com/arrowheadflies"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="social-link"
-          >
-            <Instagram size={24} />
-            <span>@arrowheadflies</span>
-          </a>
-        </header>
-
         <div className="hero-main delay-100">
           <h2 className="hero-headline">Handcrafted Precision.</h2>
           <p className="hero-subheadline">
@@ -30,7 +17,7 @@ export default function Hero() {
           </p>
           <div className="hero-cta delay-300">
             <button className="btn-primary" onClick={scrollToEmail}>
-              Enter Early Season Giveaway <ArrowRight size={18} />
+              Enter the Founders Giveaway <ArrowRight size={18} />
             </button>
           </div>
         </div>
@@ -60,8 +47,9 @@ export default function Hero() {
           display: flex;
           flex-direction: column;
           flex: 1;
-          padding-top: 2rem;
+          padding-top: 5rem;
           padding-bottom: 4rem;
+          justify-content: center;
         }
 
         .hero-header {

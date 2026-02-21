@@ -49,16 +49,28 @@ export default function EmailCapture() {
       <div className="container">
         <div className="giveaway-card">
           <div className="giveaway-content">
-            <span className="giveaway-badge">Limited Time</span>
-            <h3 className="giveaway-title">The Early Season Box Giveaway</h3>
+            <span className="giveaway-badge">Founders Edition</span>
+            <h3 className="giveaway-title">The Arrowhead Founders Fly Box</h3>
             <p className="giveaway-desc">
-              We're giving away a custom-curated fly box loaded with 50 premium handcrafted flies specifically tied for early season hatches. Enter your email below to win, and to get exclusive updates before we officially launch the shop.
+              We're giving away a hand-curated fly box loaded with 50 premium handcrafted flies personally selected by our tier. To enter, follow us on Instagram and drop your email below. One winner will be chosen when we officially launch the shop or hit a number of followers.
             </p>
 
+            <div className="instagram-cta">
+              <a
+                href="https://instagram.com/arrowheadflies"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-instagram"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg>
+                Step 1 — Follow @arrowheadflies on Instagram
+              </a>
+            </div>
+            <br />
             {submitted ? (
               <div className="success-message">
                 <CheckCircle className="success-icon" size={24} />
-                <p>You're entered! Check your inbox soon for updates on the launch.</p>
+                <p>You're in the Founders Giveaway! We'll announce the winner at launch.</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="giveaway-form">
@@ -67,7 +79,7 @@ export default function EmailCapture() {
                   <input
                     type="email"
                     required
-                    placeholder="Enter your email address..."
+                    placeholder="Step 2 — Enter your email address..."
                     className="input-dark pl-10"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -174,6 +186,29 @@ export default function EmailCapture() {
           font-size: 0.85rem;
           color: var(--text-secondary);
           opacity: 0.7;
+        }
+
+        .instagram-cta {
+          margin-top: 1.5rem;
+        }
+
+        .btn-instagram {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.6rem;
+          background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+          color: white;
+          font-weight: 600;
+          font-size: 0.9rem;
+          padding: 0.65rem 1.4rem;
+          border-radius: 6px;
+          text-decoration: none;
+          transition: opacity 0.2s, transform 0.15s;
+        }
+
+        .btn-instagram:hover {
+          opacity: 0.9;
+          transform: translateY(-1px);
         }
 
         .success-message {

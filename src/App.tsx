@@ -1,10 +1,12 @@
 import Hero from './components/Hero'
 import Story from './components/Story'
 import EmailCapture from './components/EmailCapture'
+import Navbar from './components/Navbar'
 
 function App() {
   return (
     <div className="app-container">
+      <Navbar />
       <main>
         <Hero />
         <Story />
