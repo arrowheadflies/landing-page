@@ -1,10 +1,15 @@
 import { Instagram } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function Navbar() {
   return (
     <nav className="navbar">
-      <h1 className="brand-title">ARROWHEAD</h1>
+      <Link to="/" className="brand-title">
+        ARROWHEAD
+      </Link>
+
       <div className="navbar-right">
+        <Link to="/hatch-guide" className="nav-link">HATCH GUIDE</Link>
         <a
           href="https://instagram.com/arrowheadflies"
           target="_blank"
@@ -15,38 +20,6 @@ export default function Navbar() {
           <span>@arrowheadflies</span>
         </a>
       </div>
-
-      <style>{`
-        .navbar {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          z-index: 100;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 1rem 2rem;
-          background: rgba(10, 11, 12, 0.75);
-          backdrop-filter: blur(12px);
-          -webkit-backdrop-filter: blur(12px);
-          border-bottom: 1px solid rgba(255,255,255,0.06);
-          transition: background 0.3s;
-        }
-
-        .navbar-right {
-          display: flex;
-          align-items: center;
-          gap: 1.5rem;
-        }
-
-
-        @media (max-width: 480px) {
-          .navbar {
-            padding: 0.9rem 1.25rem;
-          }
-        }
-      `}</style>
     </nav>
   );
 }

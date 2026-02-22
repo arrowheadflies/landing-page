@@ -11,8 +11,8 @@ export default function Hero() {
       <div className="hero-overlay"></div>
       <div className="hero-content container animate-fade-in">
         <div className="hero-main delay-100">
-          <h2 className="hero-headline">Handcrafted Precision.</h2>
-          <p className="hero-subheadline">
+          <h2 className="brand-headline">Handcrafted Precision.</h2>
+          <p className="brand-subheadline">
             Premium flies for the modern angler. Built to last, designed to make a point.
           </p>
           <div className="hero-cta delay-300">
@@ -52,35 +52,6 @@ export default function Hero() {
           justify-content: center;
         }
 
-        .hero-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          width: 100%;
-        }
-
-        .brand-title {
-          font-size: 1.5rem;
-          letter-spacing: 0.2em;
-          font-weight: 700;
-          margin: 0;
-        }
-
-        .social-link {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          color: var(--text-primary);
-          text-decoration: none;
-          font-size: 0.9rem;
-          font-weight: 500;
-          transition: opacity 0.2s;
-        }
-
-        .social-link:hover {
-          opacity: 0.7;
-        }
-
         .hero-main {
           flex: 1;
           display: flex;
@@ -89,7 +60,7 @@ export default function Hero() {
           max-width: 800px;
         }
 
-        .hero-headline {
+        .brand-headline {
           font-size: clamp(3rem, 8vw, 6rem);
           font-weight: 700;
           line-height: 1.1;
@@ -97,7 +68,7 @@ export default function Hero() {
           letter-spacing: -0.02em;
         }
 
-        .hero-subheadline {
+        .brand-subheadline {
           font-size: clamp(1.1rem, 2vw, 1.5rem);
           color: var(--text-secondary);
           margin-bottom: 2.5rem;
