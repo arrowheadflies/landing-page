@@ -11,6 +11,9 @@ export default function Hero() {
       <div className="hero-overlay"></div>
       <div className="hero-content container animate-fade-in">
         <div className="hero-main delay-100">
+          <div className="hero-brand-mark">
+            <span className="brand-badge">EST. 2025</span>
+          </div>
           <h2 className="brand-headline">Handcrafted Precision.</h2>
           <p className="brand-subheadline">
             Premium flies for the modern angler. Built to last, designed to make a point.
@@ -58,6 +61,22 @@ export default function Hero() {
           flex-direction: column;
           justify-content: center;
           max-width: 800px;
+        }
+
+        .hero-brand-mark {
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+          margin-bottom: 2rem;
+        }
+
+        .brand-badge {
+          display: inline-block;
+          font-size: 0.75rem;
+          font-weight: 800;
+          letter-spacing: 0.4em;
+          color: var(--accent-green);
+          text-transform: uppercase;
         }
 
         .brand-headline {

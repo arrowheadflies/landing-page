@@ -1,131 +1,143 @@
-import { useEffect, useRef } from 'react'
-import { useParams, useLocation, useNavigate, Link } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import { Bug, Droplets, ArrowUp, Wind, ArrowLeft, ChevronRight } from 'lucide-react'
 import { hatchData } from '../data/hatchData'
 
 function HatchDetail() {
-  const { category, flyId } = useParams();
-  const { hash } = useLocation();
+  const { category, stageId } = useParams();
   const navigate = useNavigate();
   const data = category ? hatchData[category] : null;
-  const flyRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
-  useEffect(() => {
-    if (!data) {
-      navigate('/hatch-guide');
-      return;
-    }
+  if (!data) {
+    return (
+      <div className="error-view container">
+        <h2>Category Not Found</h2>
+        <Link to="/hatch-guide" className="back-link">BACK TO HATCH GUIDE</Link>
+      </div>
+    );
+  }
 
-    // Handle scroll to flyId or Hash
-    const targetId = flyId || (hash ? hash.substring(1) : null);
-    if (targetId) {
-      setTimeout(() => {
-        const element = document.getElementById(targetId) || flyRefs.current[targetId];
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-      }, 100);
-    }
-  }, [category, flyId, hash, data, navigate]);
-
-  if (!data) return null;
+  // Find the current stage if stageId is present
+  const currentStage = stageId ? data.stages.find(s => s.id === stageId) : null;
 
   return (
     <div className="hatch-detail-container">
       <header className="guide-header">
         <div className="container">
           <div className="header-nav">
-            <Link to="/hatch-guide" className="back-link">
-              <ArrowLeft size={16} /> BACK TO HATCH GUIDE
+            <Link to={stageId ? `/hatch-guide/${category}` : "/hatch-guide"} className="back-link">
+              <ArrowLeft size={16} /> {stageId ? `BACK TO ${data.name.toUpperCase()}` : "BACK TO HATCH GUIDE"}
             </Link>
           </div>
           <div className="header-content-main">
-            <span className="brand-badge">HATCH GUIDE: {data.id.toUpperCase()}</span>
-            <h1 className="brand-headline">{data.name}</h1>
-            <p className="brand-subheadline">{data.overview}</p>
+            <span className="brand-badge">
+              {stageId ? `STAGED INFORMATION: ${currentStage?.name.toUpperCase()}` : `HATCH GUIDE: ${data.id.toUpperCase()}`}
+            </span>
+            <h1 className="brand-headline">{currentStage ? currentStage.name : data.name}</h1>
+            <p className="brand-subheadline">
+              {currentStage ? currentStage.description : data.overview}
+            </p>
           </div>
         </div>
       </header>
 
-      <div className="stages-nav container">
-        {data.stages.map((stage, index) => (
-          <div key={stage.id} className="nav-group">
-            <a href={`#${stage.id}`} className="stage-nav-item">
-              {stage.name.toLowerCase().includes('larva') && <Bug size={20} />}
-              {stage.name.toLowerCase().includes('pupa') && <Droplets size={20} />}
-              {stage.name.toLowerCase().includes('emerger') && <ArrowUp size={20} />}
-              {stage.name.toLowerCase().includes('adult') && <Wind size={20} />}
-              <span>{stage.name}</span>
-            </a>
-            {index < data.stages.length - 1 && (
-              <ChevronRight className="nav-arrow" size={20} strokeWidth={3} />
-            )}
+      {!stageId ? (
+        <>
+          <div className="stages-nav container">
+            {data.stages.map((stage, index) => (
+              <div key={stage.id} className="nav-group">
+                <Link to={`/hatch-guide/${category}/${stage.id}`} className="stage-nav-item">
+                  {stage.name.toLowerCase().includes('larva') && <Bug size={20} />}
+                  {stage.name.toLowerCase().includes('pupa') && <Droplets size={20} />}
+                  {stage.name.toLowerCase().includes('emerger') && <ArrowUp size={20} />}
+                  {stage.name.toLowerCase().includes('adult') && <Wind size={20} />}
+                  <span>{stage.name}</span>
+                </Link>
+                {index < data.stages.length - 1 && (
+                  <ChevronRight className="nav-arrow" size={20} strokeWidth={3} />
+                )}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
 
-      <div className="stages-container">
-        {data.stages.map((stage) => (
-          <section id={stage.id} key={stage.id} className="stage-section">
-            <div className="container tight-stage">
-              <div className="stage-info">
-                <div className="stage-header-with-icon">
-                  {stage.name.toLowerCase().includes('larva') && <Bug className="stage-icon" size={32} />}
-                  {stage.name.toLowerCase().includes('pupa') && <Droplets className="stage-icon" size={32} />}
-                  {stage.name.toLowerCase().includes('emerger') && <ArrowUp className="stage-icon" size={32} />}
-                  {stage.name.toLowerCase().includes('adult') && <Wind className="stage-icon" size={32} />}
-                  <h2 className="stage-name">{stage.name}</h2>
+          <div className="category-overview container">
+            <div className="overview-grid">
+              <div className="overview-image">
+                <div className="tactical-frame">
+                  <img src="/brand/logo-icon.jpg" alt="Tactical" className="corner-logo" />
+                  <div className="frame-data">CATEGORY: {data.id.toUpperCase()}</div>
                 </div>
-                <p className="stage-desc">{stage.description}</p>
-
-                <div className="tactics-content">
-                  <div className="tactics-box">
-                    <h4>Tactical Approach</h4>
-                    <ul>
-                      {stage.tactics.map((tactic, i) => (
-                        <li key={i}>{tactic}</li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="flies-list">
-                    <h4>Recommended Patterns</h4>
-                    <div className="flies-grid-compact">
-                      {stage.flies.map((fly) => (
-                        <div
-                          id={fly.id}
-                          key={fly.id}
-                          ref={el => { flyRefs.current[fly.id] = el; }}
-                          className={`fly-item ${flyId === fly.id ? 'focused-fly' : ''}`}
-                        >
-                          <span className="fly-name">{fly.name}</span>
-                          <span className="fly-sizes">Typical Sizes: {fly.sizes}</span>
-                          <p className="fly-desc">{fly.description}</p>
-                          {flyId === fly.id && <div className="focus-indicator">Currently Viewing</div>}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+              </div>
+              <div className="overview-text">
+                <h3>Strategic Importance</h3>
+                <p>{data.overview}</p>
+                <div className="stages-preview">
+                  <h4>Lifecycle Stages</h4>
+                  <p>This insect undergoes {data.stages.length} distinct stages. Click above to view specific patterns and tactical approaches for each.</p>
                 </div>
               </div>
             </div>
-          </section>
-        ))}
-      </div>
+          </div>
+        </>
+      ) : (
+        <div className="stage-detail container">
+          <div className="stage-content-layout">
+            <div className="stage-tactics">
+              <div className="tactics-card">
+                <div className="card-header">
+                  <div className="icon-badge">
+                    {currentStage?.name.toLowerCase().includes('larva') && <Bug size={24} />}
+                    {currentStage?.name.toLowerCase().includes('pupa') && <Droplets size={24} />}
+                    {currentStage?.name.toLowerCase().includes('emerger') && <ArrowUp size={24} />}
+                    {currentStage?.name.toLowerCase().includes('adult') && <Wind size={24} />}
+                  </div>
+                  <h3>Tactical Approach</h3>
+                </div>
+                <ul className="tactics-list">
+                  {currentStage?.tactics.map((tactic, i) => (
+                    <li key={i}>{tactic}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="stage-patterns">
+              <div className="patterns-header">
+                <h2>INVENTORY: RECOMMENDED PATTERNS</h2>
+                <p>Curated flies from our technical selection for the {currentStage?.name.toLowerCase()}.</p>
+              </div>
+
+              <div className="patterns-grid">
+                {currentStage?.flies.map((fly) => (
+                  <div key={fly.id} className="pattern-card">
+                    <div className="pattern-id">PATTERN ID: {fly.id.toUpperCase()}</div>
+                    <div className="pattern-info">
+                      <h3>{fly.name}</h3>
+                      <span className="pattern-sizes">SIZES: {fly.sizes}</span>
+                      <p>{fly.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <style>{`
         .hatch-detail-container {
           padding-top: 80px;
-          background-color: #121415;
+          background-color: #0A0B0C;
+          min-height: 100vh;
         }
 
         .guide-header {
-          padding: 8rem 0 4rem;
+          padding: 6rem 0 3rem;
           border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          background: linear-gradient(to bottom, #121415, #0A0B0C);
         }
 
         .header-nav {
-          margin-bottom: 3rem;
+          margin-bottom: 2rem;
         }
 
         .back-link {
@@ -134,11 +146,10 @@ function HatchDetail() {
           gap: 0.5rem;
           color: rgba(255, 255, 255, 0.4);
           text-decoration: none;
-          font-size: 0.75rem;
-          font-weight: 700;
+          font-size: 0.7rem;
+          font-weight: 800;
           letter-spacing: 0.15em;
           transition: all 0.2s;
-          padding: 0.5rem 0;
         }
 
         .back-link:hover {
@@ -147,35 +158,56 @@ function HatchDetail() {
         }
 
         .header-content-main {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
+          max-width: 800px;
+        }
+
+        .brand-badge {
+          font-size: 0.7rem;
+          font-weight: 800;
+          color: var(--accent-green);
+          letter-spacing: 0.2em;
+          background: rgba(74, 222, 128, 0.1);
+          padding: 0.4rem 0.8rem;
+          border-radius: 4px;
+          margin-bottom: 1.5rem;
+          display: inline-block;
+        }
+
+        .brand-headline {
+          font-size: clamp(2.5rem, 6vw, 4.5rem);
+          font-weight: 900;
+          color: #FFF;
+          margin: 0 0 1.5rem 0;
+          letter-spacing: -0.02em;
+          line-height: 1;
+        }
+
+        .brand-subheadline {
+          font-size: 1.1rem;
+          color: var(--text-secondary);
+          line-height: 1.6;
+          margin: 0;
+          opacity: 0.8;
         }
 
         .stages-nav {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 1.5rem;
+          gap: 2rem;
           padding: 1.5rem 0;
+          background: rgba(10, 11, 12, 0.8);
+          backdrop-filter: blur(12px);
           border-bottom: 1px solid rgba(255, 255, 255, 0.05);
           position: sticky;
           top: 80px;
-          background: rgba(18, 20, 21, 0.95);
-          backdrop-filter: blur(12px);
           z-index: 100;
-          overflow-x: auto;
-          scrollbar-width: none;
-        }
-
-        .stages-nav::-webkit-scrollbar {
-          display: none;
         }
 
         .nav-group {
           display: flex;
           align-items: center;
-          gap: 1.5rem;
+          gap: 2rem;
         }
 
         .nav-arrow {
@@ -186,167 +218,231 @@ function HatchDetail() {
           display: flex;
           align-items: center;
           gap: 0.75rem;
-          color: rgba(255, 255, 255, 0.5);
+          color: rgba(255, 255, 255, 0.4);
           text-decoration: none;
-          font-size: 0.85rem;
-          font-weight: 700;
-          text-transform: uppercase;
+          font-size: 0.8rem;
+          font-weight: 800;
           letter-spacing: 0.1em;
-          transition: all 0.2s;
-          white-space: nowrap;
+          transition: all 0.3s ease;
         }
 
         .stage-nav-item:hover {
           color: var(--accent-green);
+          transform: translateY(-2px);
         }
 
-        .stage-section {
-          padding: 4rem 0;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        .category-overview {
+          padding: 5rem 0;
         }
 
-        .tight-stage {
-          max-width: 900px;
-        }
-
-        .stage-header-with-icon {
-          display: flex;
-          align-items: center;
-          gap: 1.5rem;
-          margin-bottom: 2rem;
-        }
-
-        .stage-icon {
-           color: var(--accent-green);
-           opacity: 0.8;
-        }
-
-        .stage-name {
-          font-size: clamp(2.5rem, 5vw, 4rem);
-          font-weight: 700;
-          color: #FFF;
-          margin: 0;
-        }
-
-        .stage-desc {
-          font-size: 1.15rem;
-          color: var(--text-secondary);
-          line-height: 1.8;
-          margin-bottom: 3rem;
-        }
-
-        .tactics-content {
+        .overview-grid {
           display: grid;
           grid-template-columns: 1fr;
-          gap: 2rem;
+          gap: 4rem;
+          align-items: center;
         }
 
-        @media (min-width: 768px) {
-          .tactics-content {
+        @media (min-width: 992px) {
+          .overview-grid {
             grid-template-columns: 1fr 1fr;
           }
         }
 
-        .tactics-box {
+        .tactical-frame {
+          aspect-ratio: 4/3;
           background: rgba(255, 255, 255, 0.02);
           border: 1px solid rgba(255, 255, 255, 0.05);
-          padding: 2rem;
           border-radius: 12px;
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
-        .tactics-box h4 {
-          text-transform: uppercase;
+        .corner-logo {
+          width: 64px;
+          opacity: 0.1;
+        }
+
+        .frame-data {
+          position: absolute;
+          bottom: 1.5rem;
+          left: 1.5rem;
+          font-size: 0.6rem;
+          font-weight: 800;
+          letter-spacing: 0.2em;
+          color: rgba(255, 255, 255, 0.2);
+        }
+
+        .overview-text h3 {
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: #FFF;
+          margin-bottom: 1.5rem;
+        }
+
+        .overview-text p {
+          font-size: 1rem;
+          color: var(--text-secondary);
+          line-height: 1.8;
+          margin-bottom: 2.5rem;
+        }
+
+        .stages-preview h4 {
+          font-size: 0.75rem;
+          font-weight: 800;
           letter-spacing: 0.1em;
-          font-size: 0.8rem;
-          margin-bottom: 1.25rem;
           color: var(--accent-green);
+          margin-bottom: 0.75rem;
+          text-transform: uppercase;
         }
 
-        .tactics-box ul {
+        .stages-preview p {
+          font-size: 0.9rem;
+          opacity: 0.6;
+        }
+
+        .stage-detail {
+          padding: 5rem 0;
+        }
+
+        .stage-content-layout {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 4rem;
+        }
+
+        @media (min-width: 992px) {
+          .stage-content-layout {
+            grid-template-columns: 350px 1fr;
+          }
+        }
+
+        .tactics-card {
+          background: rgba(255, 255, 255, 0.02);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          padding: 2.5rem;
+          border-radius: 16px;
+          position: sticky;
+          top: 120px;
+        }
+
+        .icon-badge {
+          width: 52px;
+          height: 52px;
+          background: rgba(74, 222, 128, 0.1);
+          color: var(--accent-green);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 12px;
+          margin-bottom: 1.5rem;
+        }
+
+        .tactics-card h3 {
+          font-size: 1.25rem;
+          font-weight: 800;
+          color: #FFF;
+          margin-bottom: 2rem;
+          letter-spacing: 0.05em;
+        }
+
+        .tactics-list {
           list-style: none;
           padding: 0;
+          margin: 0;
         }
 
-        .tactics-box li {
-          margin-bottom: 0.75rem;
+        .tactics-list li {
           color: var(--text-primary);
-          padding-left: 1.25rem;
-          position: relative;
           font-size: 0.95rem;
+          line-height: 1.6;
+          padding-left: 1.5rem;
+          position: relative;
+          margin-bottom: 1.25rem;
+          opacity: 0.9;
         }
 
-        .tactics-box li::before {
+        .tactics-list li::before {
           content: '→';
           position: absolute;
           left: 0;
           color: var(--accent-green);
+          font-weight: 900;
         }
 
-        .flies-list h4 {
-          text-transform: uppercase;
-          letter-spacing: 0.1em;
+        .patterns-header {
+          margin-bottom: 3rem;
+        }
+
+        .patterns-header h2 {
           font-size: 0.8rem;
-          color: rgba(255, 255, 255, 0.4);
-          margin-bottom: 1.25rem;
-        }
-
-        .flies-grid-compact {
-          display: grid;
-          gap: 1rem;
-        }
-
-        .fly-item {
-          padding: 1.25rem;
-          border-radius: 8px;
-          border: 1px solid rgba(255, 255, 255, 0.05);
-          background: rgba(255, 255, 255, 0.01);
-          transition: all 0.3s ease;
-          position: relative;
-        }
-
-        .fly-name {
-          font-weight: 700;
-          display: block;
-          font-size: 1rem;
-          margin-bottom: 0.2rem;
-          color: #FFF;
-        }
-
-        .fly-sizes {
-          font-size: 0.75rem;
-          color: var(--accent-green);
-          font-weight: 600;
-          display: block;
+          font-weight: 900;
+          letter-spacing: 0.2em;
+          color: rgba(255, 255, 255, 0.3);
           margin-bottom: 0.5rem;
         }
 
-        .fly-desc {
-          font-size: 0.85rem;
+        .patterns-header p {
           color: var(--text-secondary);
-          line-height: 1.5;
+          font-size: 1.1rem;
         }
 
-        .focused-fly {
-          border-color: var(--accent-green);
-          background: rgba(74, 222, 128, 0.05);
+        .patterns-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+          gap: 1.5rem;
         }
 
-        .focus-indicator {
-          position: absolute;
-          top: 1rem;
-          right: 1rem;
+        .pattern-card {
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          border-radius: 12px;
+          padding: 2rem;
+          transition: all 0.3s ease;
+        }
+
+        .pattern-card:hover {
+          background: rgba(255, 255, 255, 0.05);
+          border-color: rgba(255, 255, 255, 0.15);
+          transform: translateY(-4px);
+        }
+
+        .pattern-id {
           font-size: 0.6rem;
           font-weight: 800;
-          text-transform: uppercase;
+          color: rgba(255, 255, 255, 0.2);
+          margin-bottom: 1.5rem;
           letter-spacing: 0.1em;
+        }
+
+        .pattern-info h3 {
+          font-size: 1.2rem;
+          font-weight: 700;
+          color: #FFF;
+          margin-bottom: 0.5rem;
+        }
+
+        .pattern-sizes {
+          display: inline-block;
+          font-size: 0.65rem;
+          font-weight: 800;
+          color: var(--accent-green);
+          background: rgba(74, 222, 128, 0.1);
           padding: 0.2rem 0.5rem;
-          background: var(--accent-green);
-          color: #000;
-          border-radius: 4px;
+          border-radius: 3px;
+          margin-bottom: 1.25rem;
+        }
+
+        .pattern-info p {
+          font-size: 0.9rem;
+          color: var(--text-secondary);
+          line-height: 1.6;
+          margin: 0;
         }
       `}</style>
     </div>
-  )
+  );
 }
 
-export default HatchDetail
+export default HatchDetail;

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { HashRouter as Router, Routes, Route } from 'react-router-dom'
 import Hero from './components/Hero'
 import Story from './components/Story'
@@ -5,12 +6,22 @@ import EmailCapture from './components/EmailCapture'
 import HatchHub from './pages/HatchHub'
 import HatchDetail from './pages/HatchDetail'
 import Navbar from './components/Navbar'
+import NavigationChart from './components/NavigationChart'
 
 function App() {
+  const [isNavChartOpen, setIsNavChartOpen] = useState(false)
+
   return (
     <Router>
       <div className="app-container">
-        <Navbar />
+        <Navbar
+          onMenuClick={() => setIsNavChartOpen(!isNavChartOpen)}
+          isMenuOpen={isNavChartOpen}
+        />
+        <NavigationChart
+          isOpen={isNavChartOpen}
+          onClose={() => setIsNavChartOpen(false)}
+        />
         <main>
           <Routes>
             <Route path="/" element={
@@ -22,13 +33,14 @@ function App() {
             } />
             <Route path="/hatch-guide" element={<HatchHub />} />
             <Route path="/hatch-guide/:category" element={<HatchDetail />} />
-            <Route path="/hatch-guide/:category/:flyId" element={<HatchDetail />} />
+            <Route path="/hatch-guide/:category/:stageId" element={<HatchDetail />} />
           </Routes>
         </main>
 
         <footer className="footer">
           <div className="container footer-content">
             <div className="footer-brand">
+              <img src="/brand/logo-icon.jpg" alt="Arrowhead" style={{ height: '40px', marginBottom: '1rem' }} />
               <span className="brand-title-small">ARROWHEAD FLIES</span>
             </div>
             <div className="footer-links">

@@ -61,6 +61,19 @@ function HatchHub() {
           gap: 2.5rem;
         }
 
+        @media (max-width: 768px) {
+          .hatch-hub-container {
+            padding: 6rem 0;
+          }
+          .hub-header {
+            margin-bottom: 3rem;
+          }
+          .category-grid {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+          }
+        }
+
         .category-card {
            position: relative;
            height: 480px;
@@ -73,6 +86,13 @@ function HatchHub() {
            padding: 2.5rem;
            border: 1px solid rgba(255, 255, 255, 0.05);
            transition: all 0.4s cubic-bezier(0.2, 0, 0.2, 1);
+        }
+
+        @media (max-width: 768px) {
+          .category-card {
+            height: 320px;
+            padding: 1.5rem;
+          }
         }
 
         .category-card:hover:not(.upcoming) {
@@ -141,12 +161,25 @@ function HatchHub() {
           letter-spacing: -0.01em;
         }
 
+        @media (max-width: 768px) {
+          .cat-title {
+            font-size: 1.75rem;
+          }
+        }
+
         .cat-desc {
           color: rgba(255, 255, 255, 0.5);
           font-size: 1rem;
           line-height: 1.6;
           margin-bottom: 2rem;
           max-width: 320px;
+        }
+
+        @media (max-width: 768px) {
+          .cat-desc {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
         }
 
         .category-card.upcoming {
