@@ -6,42 +6,143 @@
 
 ---
 
-## Making Updates
+# Arrowhead Flies — Deployment Guide
 
-### Step 1 — Test Locally
-Start the dev server and verify your changes look correct before going live:
-```bash
-npm run dev
-```
-Open http://localhost:5173 (or whatever port it picks) in your browser.
+## Overview
+
+This project uses two branches:
+
+- **`main`** — source code and active development
+- **`gh-pages`** — the live, built site served at your domain
+
+These two branches are kept **intentionally separate**. You commit code changes to `main` whenever you like, and only deploy to the live site when you're ready using `npm run deploy`.
 
 ---
 
-### Step 2 — Save Your Code (Backup to GitHub)
-Once you're happy with the changes:
+## Branch Structure
+
+```
+main        →  Your source code (React, TypeScript, assets)
+gh-pages    →  The compiled build (index.html, assets/, brand/)
+```
+
+> ⚠️ Never manually edit the `gh-pages` branch. It is always overwritten by the deploy command.
+
+---
+
+## One-Time Setup
+
+Make sure your `package.json` scripts section includes the deploy command:
+
+```json
+"scripts": {
+  "dev": "vite",
+  "build": "tsc && vite build",
+  "deploy": "npm run build && npx gh-pages -d dist"
+}
+```
+
+And make sure `gh-pages` is installed:
+
 ```bash
+npm install gh-pages --save-dev
+```
+
+---
+
+## Daily Workflow — Committing to `main`
+
+Use this when you've made code changes and want to save your work. This does **not** update the live site.
+
+```bash
+# 1. Check what files have changed
+git status
+
+# 2. Stage your changes
 git add .
-git commit -m "Short description of what you changed"
+
+# 3. Commit with a descriptive message
+git commit -m "Your message here"
+
+# 4. Push to main
 git push origin main
 ```
 
+### Example commit messages
+```bash
+git commit -m "Add PMD hatch stage patterns"
+git commit -m "Fix navigation back link on HatchDetail"
+git commit -m "Update homepage hero copy"
+```
+
 ---
 
-### Step 3 — Deploy to the Live Site
-This automatically rebuilds the site and pushes it live:
+## Deploying to the Live Site — Pushing to `gh-pages`
+
+Use this when you're ready to publish your changes to the live website. This command will:
+
+1. Run TypeScript type-checking
+2. Build the production bundle via Vite
+3. Push the compiled output to the `gh-pages` branch
+4. Update your live site automatically
+
 ```bash
 npm run deploy
 ```
-Your site at **arrowheadflies.com** will update within ~60 seconds.
+
+That's it. One command.
+
+> If the TypeScript build fails, the deploy will stop and nothing will be pushed to the live site — keeping your production build safe.
 
 ---
 
-## Tips
+## Full Example: Code Change to Live Site
 
-- **Always test locally first** — never `npm run deploy` untested changes
-- **Write clear commit messages** — e.g. `"Updated hero headline"` not just `"changes"`
-- If `npm run deploy` throws an error, the **live site is unaffected** — it only publishes on success
-- The dev server port may increment (5174, 5175...) if previous sessions are still running
+```bash
+# Make your code changes in your editor, then...
+
+# 1. Save your work to main
+git add .
+git commit -m "Add Caddis emerger fly patterns"
+git push origin main
+
+# 2. When ready to go live
+npm run deploy
+```
+
+---
+
+## Checking the Live Site
+
+After running `npm run deploy`, your site will be live at:
+
+```
+https://arrowheadflies.com
+```
+
+GitHub Pages typically updates within **30–60 seconds** of a successful deploy.
+
+---
+
+## Troubleshooting
+
+**Build fails on deploy**
+```bash
+# Run the build separately to see the full error
+npm run build
+```
+
+**Site not updating after deploy**
+- Hard refresh the browser: `Cmd + Shift + R` (Mac) or `Ctrl + Shift + R` (Windows)
+- Wait 60 seconds and try again — GitHub Pages can have a short propagation delay
+
+**Accidental push to wrong branch**
+- Your source code lives in `main` — always make changes there
+- The `gh-pages` branch is auto-managed, don't commit to it directly
+
+**"Compare & pull request" banner on GitHub**
+- This is normal and harmless — it appears when `main` has commits `gh-pages` doesn't
+- It disappears after a few days, or after your next deploy
 
 ---
 

@@ -75,7 +75,7 @@ export default function Hero() {
           font-size: 0.75rem;
           font-weight: 800;
           letter-spacing: 0.4em;
-          color: var(--accent-green);
+          color: var(--color-cream);
           text-transform: uppercase;
         }
 

@@ -1,10 +1,9 @@
-import { useParams, useNavigate, Link } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { Bug, Droplets, ArrowUp, Wind, ArrowLeft, ChevronRight } from 'lucide-react'
 import { hatchData } from '../data/hatchData'
 
 function HatchDetail() {
   const { category, stageId } = useParams();
-  const navigate = useNavigate();
   const data = category ? hatchData[category] : null;
 
   if (!data) {

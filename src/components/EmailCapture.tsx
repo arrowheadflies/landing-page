@@ -114,14 +114,15 @@ export default function EmailCapture() {
 
         .giveaway-badge {
           display: inline-block;
-          background-color: rgba(74, 222, 128, 0.1);
-          color: var(--accent-green);
-          font-size: 0.85rem;
+          background-color: var(--color-deep-red);
+          border: 1px solid #632426;
+          color: var(--color-cream);
+          font-size: 0.75rem;
           font-weight: 600;
           text-transform: uppercase;
           letter-spacing: 0.1em;
-          padding: 0.35rem 0.75rem;
-          border-radius: 100px;
+          padding: 0.3rem 0.75rem;
+          border-radius: var(--radius-md);
           margin-bottom: 1.5rem;
         }
 

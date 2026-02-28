@@ -132,10 +132,11 @@ function HatchHub() {
           font-size: 0.65rem;
           font-weight: 800;
           letter-spacing: 0.15em;
-          color: var(--accent-green);
-          background: rgba(74, 222, 128, 0.1);
+          color: var(--color-cream);
+          background-color: var(--color-deep-red);
+          border: 1px solid #632426;
           padding: 0.3rem 0.6rem;
-          border-radius: 4px;
+          border-radius: var(--radius-md);
           margin-bottom: 1rem;
         }
 

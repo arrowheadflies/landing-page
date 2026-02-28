@@ -15,7 +15,7 @@ export default function Navbar({ onMenuClick, isMenuOpen }: NavbarProps) {
           className={`menu-icon-trigger ${isMenuOpen ? 'open' : ''}`}
           aria-label="Open Selection Chart"
         >
-          <img src="/brand/logo-icon.jpg" alt="Menu Icon" className="navbar-icon-img" />
+          <img src="/brand/logo-black-fish-white-arrow.png" alt="Menu Icon" className="navbar-icon-img" />
         </button>
         <span style={{ width: '1rem' }}></span>
         <Link to="/" className="brand-title">
@@ -118,8 +118,6 @@ export default function Navbar({ onMenuClick, isMenuOpen }: NavbarProps) {
           height: 44px;
           object-fit: contain;
           transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-          mix-blend-mode: screen;
-          filter: brightness(1.2);
         }
 
         .menu-icon-trigger.open .navbar-icon-img {

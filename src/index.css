@@ -3,13 +3,84 @@
 @tailwind utilities;
 
 :root {
-  --bg-dark: #121415;
-  --bg-panel: #1A1D1E;
-  --text-primary: #F3F4F6;
-  --text-secondary: #9CA3AF;
-  --accent-green: #4ade80;
-  --accent-green-hover: #22c55e;
-  --border-color: #2D3748;
+  /* Core Colors */
+  --color-charcoal: #2B2E30;
+  --color-sage: #6E7B74;
+  --color-cream: #D6CFC4;
+  --color-dark-sage: #4A5750;
+  --color-light-sage: #A8B5AC;
+  --color-warm-white: #EDE8E0;
+  --color-slate: #3A3F42;
+  --color-deep-blue: #2F5D75;
+  --color-brown: #4A3A30;
+  --color-deep-red: #7C2D30;
+  --color-black: #1A1D1E;
+  --color-white: #FFFFFF;
+  --color-off-white: #F5F5F0;
+  --color-light-gray: #E8E8E4;
+  --color-mid-gray: #9CA3A0;
+  --color-dark-gray: #555555;
+  --color-tan: #C4B49E;
+  --color-sand: #DDD5C7;
+  --color-bark: #6B5B4B;
+  --color-forest: #2D4A37;
+
+  /* Functional Colors */
+  --color-success: #4ADE80;
+  --color-warning: #FACC15;
+  --color-error: #EF4444;
+  --color-info: #5A9AB5;
+
+  /* Semantic Variables */
+  --bg-primary: var(--color-charcoal);
+  --bg-secondary: var(--color-slate);
+  --bg-elevated: var(--color-dark-sage);
+  --bg-surface: var(--color-warm-white);
+  --bg-inverse: var(--color-cream);
+
+  --text-primary: var(--color-cream);
+  --text-secondary: var(--color-mid-gray);
+  --text-inverse: var(--color-charcoal);
+  --text-accent: var(--color-sage);
+
+  --border-default: #3A3F42;
+  --border-focus: var(--color-sage);
+  --border-error: var(--color-error);
+
+  /* Typography */
+  --font-primary: 'Montserrat', system-ui, sans-serif;
+  --font-display: 'National Park', 'Montserrat', sans-serif;
+
+  /* Spacing */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  /* Border Radius */
+  --radius-sm: 2px;
+  --radius-default: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.35);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.4);
+
+  /* Legacy mappings */
+  --bg-dark: var(--color-charcoal);
+  --bg-panel: var(--color-slate);
+  --accent-green: var(--color-sage);
+  --accent-green-hover: var(--color-light-sage);
+  --border-color: var(--border-default);
 }
 
 * {
@@ -19,8 +90,8 @@
 }
 
 body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  background-color: var(--bg-dark);
+  font-family: var(--font-primary);
+  background-color: var(--bg-primary);
   color: var(--text-primary);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
@@ -110,13 +181,13 @@ body {
 
 /* Button Styles */
 .btn-primary {
-  background-color: var(--text-primary);
-  color: var(--bg-dark);
+  background-color: var(--color-deep-red);
+  color: var(--color-cream);
   border: none;
   padding: 0.75rem 1.5rem;
   font-weight: 600;
   font-size: 1rem;
-  border-radius: 4px;
+  border-radius: var(--radius-md);
   cursor: pointer;
   transition: all 0.2s ease;
   display: inline-flex;
@@ -126,7 +197,7 @@ body {
 }
 
 .btn-primary:hover {
-  background-color: var(--text-secondary);
+  background-color: #632426;
   transform: translateY(-2px);
 }
 
@@ -207,7 +278,7 @@ body {
   font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 0.3em;
-  color: var(--accent-green);
+  color: var(--color-cream);
   margin-bottom: 1.5rem;
   text-transform: uppercase;
 }
