@@ -57,7 +57,7 @@ Please change the parent <Route path="${Y}"> to <Route path="${Y==="/"?"*":`${Y}
           font-size: 0.75rem;
           font-weight: 800;
           letter-spacing: 0.4em;
-          color: var(--accent-green);
+          color: var(--color-cream);
           text-transform: uppercase;
         }
 
@@ -163,14 +163,15 @@ Please change the parent <Route path="${Y}"> to <Route path="${Y==="/"?"*":`${Y}
 
         .giveaway-badge {
           display: inline-block;
-          background-color: rgba(74, 222, 128, 0.1);
-          color: var(--accent-green);
-          font-size: 0.85rem;
+          background-color: var(--color-deep-red);
+          border: 1px solid #632426;
+          color: var(--color-cream);
+          font-size: 0.75rem;
           font-weight: 600;
           text-transform: uppercase;
           letter-spacing: 0.1em;
-          padding: 0.35rem 0.75rem;
-          border-radius: 100px;
+          padding: 0.3rem 0.75rem;
+          border-radius: var(--radius-md);
           margin-bottom: 1.5rem;
         }
 
@@ -362,10 +363,11 @@ Please change the parent <Route path="${Y}"> to <Route path="${Y==="/"?"*":`${Y}
           font-size: 0.65rem;
           font-weight: 800;
           letter-spacing: 0.15em;
-          color: var(--accent-green);
-          background: rgba(74, 222, 128, 0.1);
+          color: var(--color-cream);
+          background-color: var(--color-deep-red);
+          border: 1px solid #632426;
           padding: 0.3rem 0.6rem;
-          border-radius: 4px;
+          border-radius: var(--radius-md);
           margin-bottom: 1rem;
         }
 
@@ -744,7 +746,7 @@ Please change the parent <Route path="${Y}"> to <Route path="${Y==="/"?"*":`${Y}
           line-height: 1.6;
           margin: 0;
         }
-      `})]})}function Ev({onMenuClick:c,isMenuOpen:o}){return p.jsxs("nav",{className:"navbar",children:[p.jsxs("div",{className:"navbar-left",children:[p.jsx("button",{onClick:c,className:`menu-icon-trigger ${o?"open":""}`,"aria-label":"Open Selection Chart",children:p.jsx("img",{src:"/brand/logo-icon.jpg",alt:"Menu Icon",className:"navbar-icon-img"})}),p.jsx("span",{style:{width:"1rem"}}),p.jsx(Ol,{to:"/",className:"brand-title",children:"ARROWHEAD FLIES"})]}),p.jsx("div",{className:"navbar-right",children:p.jsx("a",{href:"https://instagram.com/arrowheadflies",target:"_blank",rel:"noopener noreferrer",className:"social-link-icon","aria-label":"Instagram",children:p.jsx(Hm,{size:20})})}),p.jsx("style",{children:`
+      `})]})}function Ev({onMenuClick:c,isMenuOpen:o}){return p.jsxs("nav",{className:"navbar",children:[p.jsxs("div",{className:"navbar-left",children:[p.jsx("button",{onClick:c,className:`menu-icon-trigger ${o?"open":""}`,"aria-label":"Open Selection Chart",children:p.jsx("img",{src:"/brand/logo-black-fish-white-arrow.png",alt:"Menu Icon",className:"navbar-icon-img"})}),p.jsx("span",{style:{width:"1rem"}}),p.jsx(Ol,{to:"/",className:"brand-title",children:"ARROWHEAD FLIES"})]}),p.jsx("div",{className:"navbar-right",children:p.jsx("a",{href:"https://instagram.com/arrowheadflies",target:"_blank",rel:"noopener noreferrer",className:"social-link-icon","aria-label":"Instagram",children:p.jsx(Hm,{size:20})})}),p.jsx("style",{children:`
         .navbar-brand {
           position: absolute;
           left: 50%;
@@ -825,8 +827,6 @@ Please change the parent <Route path="${Y}"> to <Route path="${Y==="/"?"*":`${Y}
           height: 44px;
           object-fit: contain;
           transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-          mix-blend-mode: screen;
-          filter: brightness(1.2);
         }
 
         .menu-icon-trigger.open .navbar-icon-img {
