@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { HashRouter as Router, Routes, Route } from 'react-router-dom'
-import Hero from './components/Hero'
-import Story from './components/Story'
-import EmailCapture from './components/EmailCapture'
+import Home from './pages/Home'
+import FindYourFly from './pages/FindYourFly'
+import ShopPacks from './pages/ShopPacks'
 import HatchHub from './pages/HatchHub'
 import HatchDetail from './pages/HatchDetail'
+import FlyDetail from './pages/FlyDetail'
 import Navbar from './components/Navbar'
 import NavigationChart from './components/NavigationChart'
 
@@ -24,16 +25,14 @@ function App() {
         />
         <main>
           <Routes>
-            <Route path="/" element={
-              <>
-                <Hero />
-                <Story />
-                <EmailCapture />
-              </>
-            } />
+            <Route path="/" element={<Home />} />
+            <Route path="/quiver" element={<FindYourFly />} />
+            <Route path="/quiver/:location" element={<FindYourFly />} />
+            <Route path="/shop-packs" element={<ShopPacks />} />
             <Route path="/hatch-guide" element={<HatchHub />} />
             <Route path="/hatch-guide/:category" element={<HatchDetail />} />
             <Route path="/hatch-guide/:category/:stageId" element={<HatchDetail />} />
+            <Route path="/fly/:flyId" element={<FlyDetail />} />
           </Routes>
         </main>
 

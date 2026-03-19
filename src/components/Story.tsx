@@ -1,4 +1,4 @@
-import storyImage from '../assets/media/IMG_3572.jpg';
+import storyImage from '../assets/media/IMG_1358.jpg';
 
 export default function Story() {
   return (

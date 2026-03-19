@@ -1,4 +1,5 @@
 import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import heroBgImage from '../assets/media/IMG_3091.jpg';
 
 export default function Hero() {
@@ -14,13 +15,16 @@ export default function Hero() {
           <div className="hero-brand-mark">
             <span className="brand-badge">EST. 2025</span>
           </div>
-          <h2 className="brand-headline">Handcrafted Precision.</h2>
+          <h2 className="brand-headline">Know What to Throw.<br />Catch More Fish.</h2>
           <p className="brand-subheadline">
-            Premium flies for the modern angler. Built to last, designed to make a point.
+            Data-driven fly recommendations + curated kits for the modern angler.
           </p>
           <div className="hero-cta delay-300">
-            <button className="btn-primary" onClick={scrollToEmail}>
-              Enter the Founders Giveaway <ArrowRight size={18} />
+            <Link to="/quiver" className="btn-primary">
+              The Quiver <ArrowRight size={18} style={{ display: 'inline', marginLeft: '4px' }} />
+            </Link>
+            <button className="btn-secondary" onClick={scrollToEmail}>
+              Founders Giveaway
             </button>
           </div>
         </div>

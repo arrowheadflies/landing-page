@@ -3,85 +3,85 @@ import { useLocation } from 'react-router-dom'
 import { midgeData } from '../data/midgeData'
 
 function MidgeGuide() {
-    const { hash } = useLocation();
+  const { hash } = useLocation();
 
-    useEffect(() => {
-        if (hash) {
-            const element = document.getElementById(hash.substring(1));
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-    }, [hash]);
+  useEffect(() => {
+    if (hash) {
+      const element = document.getElementById(hash.substring(1));
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [hash]);
 
-    return (
-        <div className="midge-guide-container">
-            <header className="guide-header">
-                <div className="container">
-                    <div className="header-badge">HATCH GUIDE: THE MIDGE PROGRAM</div>
-                    <h1 className="guide-title">{midgeData.name}</h1>
-                    <p className="guide-intro">{midgeData.overview}</p>
+  return (
+    <div className="midge-guide-container">
+      <header className="guide-header">
+        <div className="container">
+          <div className="header-badge">HATCH GUIDE: THE MIDGE PROGRAM</div>
+          <h1 className="guide-title">{midgeData.name}</h1>
+          <p className="guide-intro">{midgeData.overview}</p>
+        </div>
+      </header>
+
+      <div className="stages-container">
+        {midgeData.stages.map((stage) => (
+          <section id={stage.id} key={stage.id} className="stage-section">
+            <div className="container stage-grid">
+              <div className="stage-info">
+                <h2 className="stage-name">{stage.name}</h2>
+                <p className="stage-desc">{stage.description}</p>
+
+                <div className="tactics-box">
+                  <h4>Tactical Approach</h4>
+                  <ul>
+                    {stage.tactics.map((tactic, i) => (
+                      <li key={i}>{tactic}</li>
+                    ))}
+                  </ul>
                 </div>
-            </header>
 
-            <div className="stages-container">
-                {midgeData.stages.map((stage) => (
-                    <section id={stage.id} key={stage.id} className="stage-section">
-                        <div className="container stage-grid">
-                            <div className="stage-info">
-                                <h2 className="stage-name">{stage.name}</h2>
-                                <p className="stage-desc">{stage.description}</p>
+                <div className="flies-grid">
+                  <h4>Recommended Flies</h4>
+                  {stage.flies.map((fly, i) => (
+                    <div key={i} className="fly-item">
+                      <span className="fly-name">{fly.name}</span>
+                      <span className="fly-sizes">Sized {fly.sizes}</span>
+                      <p className="fly-desc">{fly.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
 
-                                <div className="tactics-box">
-                                    <h4>Tactical Approach</h4>
-                                    <ul>
-                                        {stage.tactics.map((tactic, i) => (
-                                            <li key={i}>{tactic}</li>
-                                        ))}
-                                    </ul>
-                                </div>
-
-                                <div className="flies-grid">
-                                    <h4>Recommended Flies</h4>
-                                    {stage.flies.map((fly, i) => (
-                                        <div key={i} className="fly-item">
-                                            <span className="fly-name">{fly.name}</span>
-                                            <span className="fly-sizes">Sized {fly.sizes}</span>
-                                            <p className="fly-desc">{fly.description}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-
-                            <div className="stage-visual">
-                                <div className="stage-image-wrapper">
-                                    <img src={stage.image} alt={stage.name} className="stage-image" />
-                                    <div className="image-overlay"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                ))}
+              <div className="stage-visual">
+                <div className="stage-image-wrapper">
+                  <img src={stage.image} alt={stage.name} className="stage-image" />
+                  <div className="image-overlay"></div>
+                </div>
+              </div>
             </div>
+          </section>
+        ))}
+      </div>
 
-            <style>{`
+      <style>{`
         .midge-guide-container {
           padding-top: 80px;
-          background-color: #0A0B0C;
+          background-color: var(--bg-primary);
         }
 
         .guide-header {
           padding: 8rem 0 6rem;
           text-align: center;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          border-bottom: 1px solid var(--border-default);
         }
 
         .header-badge {
           display: inline-block;
           padding: 0.5rem 1rem;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          color: var(--accent-color);
+          background: var(--bg-secondary);
+          border: 1px solid var(--border-default);
+          color: var(--text-accent);
           font-size: 0.75rem;
           font-weight: 700;
           letter-spacing: 0.2em;
@@ -93,7 +93,7 @@ function MidgeGuide() {
           font-size: clamp(3rem, 8vw, 5rem);
           font-weight: 800;
           margin-bottom: 1.5rem;
-          color: #FFF;
+          color: var(--text-primary);
         }
 
         .guide-intro {
@@ -106,7 +106,7 @@ function MidgeGuide() {
 
         .stage-section {
           padding: 10rem 0;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          border-bottom: 1px solid var(--border-default);
         }
 
         .stage-section:nth-child(even) .stage-grid {
@@ -134,7 +134,7 @@ function MidgeGuide() {
           font-size: 3rem;
           font-weight: 700;
           margin-bottom: 2rem;
-          color: #FFF;
+          color: var(--text-primary);
         }
 
         .stage-desc {
@@ -145,8 +145,8 @@ function MidgeGuide() {
         }
 
         .tactics-box {
-          background: rgba(255, 255, 255, 0.02);
-          border: 1px solid rgba(255, 255, 255, 0.05);
+          background: var(--bg-secondary);
+          border: 1px solid var(--border-default);
           padding: 2.5rem;
           border-radius: 16px;
           margin-bottom: 3rem;
@@ -157,7 +157,7 @@ function MidgeGuide() {
           letter-spacing: 0.1em;
           font-size: 0.9rem;
           margin-bottom: 1.5rem;
-          color: var(--accent-color);
+          color: var(--text-accent);
         }
 
         .tactics-box ul {
@@ -176,7 +176,7 @@ function MidgeGuide() {
           content: '→';
           position: absolute;
           left: 0;
-          color: var(--accent-color);
+          color: var(--text-accent);
         }
 
         .flies-grid {
@@ -188,13 +188,13 @@ function MidgeGuide() {
           text-transform: uppercase;
           letter-spacing: 0.1em;
           font-size: 0.9rem;
-          color: rgba(255, 255, 255, 0.5);
+          color: var(--text-secondary);
           grid-column: 1 / -1;
         }
 
         .fly-item {
           padding-bottom: 1.5rem;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          border-bottom: 1px solid var(--border-default);
         }
 
         .fly-name {
@@ -206,7 +206,7 @@ function MidgeGuide() {
 
         .fly-sizes {
           font-size: 0.8rem;
-          color: var(--accent-color);
+          color: var(--text-accent);
           font-weight: 600;
           display: block;
           margin-bottom: 0.75rem;
@@ -242,11 +242,11 @@ function MidgeGuide() {
           left: 0;
           width: 100%;
           height: 100%;
-          background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.6) 100%);
+          background: linear-gradient(180deg, transparent 60%, var(--bg-primary) 100%);
         }
       `}</style>
-        </div>
-    )
+    </div>
+  )
 }
 
 export default MidgeGuide

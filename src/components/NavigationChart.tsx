@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bug, ScrollText, Instagram } from 'lucide-react';
+import { Bug, ScrollText, Instagram, Search, Package } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface NavigationChartProps {
@@ -13,8 +13,22 @@ const NavigationChart: React.FC<NavigationChartProps> = ({ isOpen, onClose }) =>
       title: 'HOME',
       description: 'The landing page & Arrowhead philosophy',
       icon: <ScrollText size={20} />,
-      path: '/#home',
+      path: '/',
       color: '#f87171' // Red
+    },
+    {
+      title: 'THE QUIVER',
+      description: 'Fly Selection Matrix',
+      icon: <Search size={20} />,
+      path: '/quiver',
+      color: '#38bdf8' // Blue
+    },
+    {
+      title: 'SHOP PACKS',
+      description: 'Curated Confidence Packs',
+      icon: <Package size={20} />,
+      path: '/shop-packs',
+      color: '#facc15' // Yellow
     },
     {
       title: 'HATCH GUIDE',
