@@ -31,9 +31,9 @@ const PACKS: Pack[] = [
     problem: 'Picky fish in cold, clear, technical tailwater flows — you need small, precise, and proven.',
     whenToUse: 'Year-round on tailwaters like Lake Taneycomo and the White River. Most critical Nov–Mar.',
     flies: [
-      { name: 'Red Zebra Midge', qty: 4, sizes: '#18-22' },
+      { name: 'Zebra Midge', qty: 4, sizes: '#18-22' },
       { name: 'Black Beauty', qty: 4, sizes: '#20-24' },
-      { name: 'Gray RS2', qty: 3, sizes: '#18-22' },
+      { name: 'RS2', qty: 3, sizes: '#18-22' },
       { name: 'Mercury Midge', qty: 3, sizes: '#20-24' },
       { name: 'Grey Scud', qty: 4, sizes: '#14-16' },
       { name: "Griffith's Gnat", qty: 3, sizes: '#18-22' },
@@ -149,7 +149,7 @@ const PACKS: Pack[] = [
     problem: 'Urban stillwater and warmwater species require completely different fly selection than trout streams.',
     whenToUse: 'Year-round for KC area ponds and warmwater fisheries. Stocked trout Dec–Feb, warmwater Mar–Nov.',
     flies: [
-      { name: 'Woolly Bugger (Olive/Black)', qty: 3, sizes: '#8-10' },
+      { name: 'Woolly Bugger', qty: 3, sizes: '#8-10' },
       { name: 'Clouser Minnow', qty: 3, sizes: '#4-8' },
       { name: 'Foam Spider / Popper', qty: 3, sizes: '#10-12' },
       { name: 'Damsel Nymph', qty: 3, sizes: '#12-14' },
@@ -164,14 +164,14 @@ const PACKS: Pack[] = [
 ];
 
 const INDIVIDUAL_FLIES = [
-  { name: 'Red Zebra Midge', sizes: '#18-22', type: 'Nymph', price: 2.50 },
-  { name: 'Gray RS2', sizes: '#18-22', type: 'Emerger', price: 2.50 },
+  { name: 'Zebra Midge', sizes: '#18-22', type: 'Nymph', price: 2.50 },
+  { name: 'RS2', sizes: '#18-22', type: 'Emerger', price: 2.50 },
   { name: "Griffith's Gnat", sizes: '#18-22', type: 'Dry', price: 2.50 },
   { name: "Pat's Rubber Legs", sizes: '#8-12', type: 'Nymph', price: 3.00 },
   { name: 'Elk Hair Caddis', sizes: '#14-18', type: 'Dry', price: 2.50 },
   { name: 'Chubby Chernobyl', sizes: '#8-12', type: 'Dry', price: 3.50 },
   { name: 'Parachute Adams', sizes: '#14-20', type: 'Dry', price: 2.50 },
-  { name: 'Woolly Bugger (Olive/Black)', sizes: '#6-10', type: 'Streamer', price: 3.00 },
+  { name: 'Woolly Bugger', sizes: '#6-10', type: 'Streamer', price: 3.00 },
   { name: "Amy's Ant", sizes: '#10-14', type: 'Dry', price: 2.50 },
   { name: 'Frenchie', sizes: '#14-18', type: 'Nymph', price: 2.50 },
   { name: 'X-Caddis', sizes: '#14-16', type: 'Dry', price: 2.50 },
@@ -493,16 +493,17 @@ export default function ShopPacks() {
     <div className="packs-page">
       <div className="container packs-container">
         {/* Header */}
-        <div className="packs-header">
-          <span className="section-eyebrow">Confidence Packs</span>
-          <h1 className="packs-title">Stop Buying Random Flies.</h1>
-          <p className="packs-subtitle">
-            Every pack is curated for a specific fishery and situation — hand-tied to order. Select your pack or individual flies below, then generate an order form.
+        <header className="page-header">
+          <span className="brand-badge">CONVERSION SYSTEM</span>
+          <h1 className="brand-headline">CONFIDENCE PACKS</h1>
+          <p className="brand-subheadline">
+            Stop buying random flies. Every pack is curated for a specific fishery and situation — hand-tied to order.
+            Select your pack or individual flies below to build your order form.
           </p>
           <div className="header-ctas">
             <Link to="/quiver" className="btn-primary">Not sure which pack? Use The Quiver</Link>
           </div>
-        </div>
+        </header>
 
         {/* Order Summary */}
         <div className="order-summary-section order-summary-top">
@@ -608,35 +609,38 @@ export default function ShopPacks() {
           min-height: calc(100vh - 80px);
         }
 
-        .packs-header {
-          margin-bottom: 5rem;
+        .page-header {
+          padding-top: 4rem;
+          margin-bottom: 4rem;
           max-width: 720px;
         }
 
-        .section-eyebrow {
+        .brand-badge {
           display: inline-block;
-          font-size: 0.75rem;
+          font-size: 0.72rem;
           font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.18em;
+          letter-spacing: 0.2em;
           color: var(--accent-green);
-          margin-bottom: 1rem;
+          margin-bottom: 1.25rem;
+          background: rgba(74, 222, 128, 0.08);
+          padding: 0.35rem 0.8rem;
+          border-radius: 4px;
         }
 
-        .packs-title {
-          font-size: clamp(2rem, 5vw, 3.5rem);
-          font-weight: 800;
-          letter-spacing: -0.02em;
-          margin-bottom: 1rem;
-          line-height: 1.1;
+        .brand-headline {
+          font-size: clamp(2.5rem, 6vw, 4.5rem);
+          font-weight: 900;
+          letter-spacing: -0.04em;
+          margin-bottom: 1.5rem;
+          line-height: 0.95;
+          text-transform: uppercase;
         }
 
-        .packs-subtitle {
+        .brand-subheadline {
+          font-size: 1.15rem;
           color: var(--text-secondary);
-          font-size: 1.1rem;
-          max-width: 580px;
-          line-height: 1.7;
-          margin-bottom: 2rem;
+          line-height: 1.6;
+          margin-bottom: 2.5rem;
         }
 
         .header-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }

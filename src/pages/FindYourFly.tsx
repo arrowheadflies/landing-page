@@ -183,12 +183,13 @@ export default function FindYourFly() {
   return (
     <div className="tool-page">
       <div className="container tool-container">
-        <div className="tool-header text-center">
-          <h1 className="tool-title">The Quiver</h1>
-          <p className="tool-subtitle">
+        <header className="page-header text-center mx-auto">
+          <span className="brand-badge">DECISION TOOL</span>
+          <h1 className="brand-headline">THE QUIVER</h1>
+          <p className="brand-subheadline">
             Select your location and the time of year to get pinpoint accuracy on what's hatching and exactly what to tie on.
           </p>
-        </div>
+        </header>
 
         {/* Month selector — clean wrap grid, no slider */}
         <div className="calendar-bar">
@@ -302,24 +303,44 @@ export default function FindYourFly() {
           min-height: calc(100vh - 80px);
         }
 
-        .tool-header {
-          margin-bottom: 3rem;
+        .page-header {
+          padding-top: 4rem;
+          margin-bottom: 4rem;
+          max-width: 720px;
         }
 
-        .tool-title {
-          font-size: 3rem;
-          font-weight: 800;
-          letter-spacing: -0.02em;
-          margin-bottom: 1rem;
-        }
-
-        .tool-subtitle {
-          color: var(--text-secondary);
-          font-size: 1.1rem;
-          max-width: 580px;
+        .page-header.text-center {
+          text-align: center;
           margin-left: auto;
           margin-right: auto;
+        }
+
+        .brand-badge {
+          display: inline-block;
+          font-size: 0.72rem;
+          font-weight: 700;
+          letter-spacing: 0.2em;
+          color: var(--accent-green);
+          margin-bottom: 1.25rem;
+          background: rgba(74, 222, 128, 0.08);
+          padding: 0.35rem 0.8rem;
+          border-radius: 4px;
+        }
+
+        .brand-headline {
+          font-size: clamp(2.5rem, 6vw, 4.5rem);
+          font-weight: 900;
+          letter-spacing: -0.04em;
+          margin-bottom: 1.5rem;
+          line-height: 0.95;
+          text-transform: uppercase;
+        }
+
+        .brand-subheadline {
+          font-size: 1.15rem;
+          color: var(--text-secondary);
           line-height: 1.6;
+          margin-bottom: 2.5rem;
         }
 
         /* Month grid — wraps cleanly, no scroll */

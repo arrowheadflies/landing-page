@@ -46,13 +46,12 @@ export const hatchData: Record<string, InsectCategory> = {
                 whenItWorks: "Year-round, especially strong in winter or when nothing else is hatching on tailwaters.",
                 rigSuggestion: "Standard indicator rig. Heavy tungsten point fly with an unweighted or lightly weighted midge larva 18-24 inches below. Scuds work well as the point fly.",
                 flies: [
-                    { id: "zebra-midge", name: "Zebra Midge", sizes: "18-22", description: "The gold standard tailwater midge. Thread body with a silver bead. Works year-round." },
-                    { id: "red-zebra-midge", name: "Red Zebra Midge", sizes: "18-22", description: "The gold standard for bloodworm imitations. Red body with silver ribbing." },
+                    { id: "zebra-midge", name: "Zebra Midge", sizes: "18-22", description: "The gold standard tailwater midge. Available in Black, Red, Olive, and Cream." },
                     { id: "ruby-midge", name: "Ruby Midge", sizes: "18-20", description: "Red-bodied midge larva with a tungsten bead. Stands out at depth." },
                     { id: "mercury-midge", name: "Mercury Midge", sizes: "20-24", description: "Features a silver bead for that extra 'pop' at depth." },
-                    { id: "grey-scud", name: "Grey Scud", sizes: "14-16", description: "Imitates abundant scuds (freshwater shrimp) common in tailwaters. Fish near the bottom." },
-                    { id: "crackback-scud", name: "Crackback Scud", sizes: "14-18", description: "Realistic scud pattern with a shellback that catches light. Deadly during generation flows." },
-                    { id: "ray-charles", name: "Ray Charles", sizes: "14-16", description: "Sowbug (aquatic isopod) imitation. Essential on the Madison River and spring creeks." }
+                    { id: "grey-scud", name: "Grey Scud", sizes: "14-16", description: "Imitates abundant scuds (freshwater shrimp) common in tailwaters." },
+                    { id: "crackback-scud", name: "Crackback Scud", sizes: "14-18", description: "Realistic scud pattern with a shellback that catches light." },
+                    { id: "ray-charles", name: "Ray Charles", sizes: "14-16", description: "Sowbug (aquatic isopod) imitation. Essential on the Madison River." }
                 ]
             },
             {
@@ -69,9 +68,8 @@ export const hatchData: Record<string, InsectCategory> = {
                 rigSuggestion: "Shallow indicator rig or a dry-dropper with a hi-vis dry fly and an unweighted pupa trailing 12-18 inches behind.",
                 flies: [
                     { id: "black-beauty", name: "Black Beauty", sizes: "20-24", description: "A simple thread midge pupa that works everywhere. Winter and spring tailwater staple." },
-                    { id: "rs2", name: "RS2", sizes: "18-22", description: "Rim Chung's classic emerger. A must-have transitional pattern between nymph and adult." },
-                    { id: "gray-rs2", name: "Gray RS2", sizes: "18-22", description: "The ultimate transitional fly. Tailwater magic anywhere." },
-                    { id: "rainbow-warrior", name: "Rainbow Warrior", sizes: "18-20", description: "Shiny, flashy and deadly. Mimics midge pupae and small nymphs in bright conditions." },
+                    { id: "rs2", name: "RS2", sizes: "18-22", description: "Rim Chung's classic emerger. Available in Gray, Black, and Olive." },
+                    { id: "rainbow-warrior", name: "Rainbow Warrior", sizes: "18-20", description: "Shiny, flashy and deadly. Mimics midge pupae and small nymphs." },
                     { id: "chocolate-midge", name: "Chocolate Midge", sizes: "20-22", description: "Brown and silver, mimicking the natural hue of San Juan midges." }
                 ]
             },
@@ -240,7 +238,7 @@ export const hatchData: Record<string, InsectCategory> = {
                 whenItWorks: "Spring through fall evenings. The Mother's Day Caddis hatch is legendary in May across the western US.",
                 rigSuggestion: "Single dry fly or double-dry setup. Skitter and twitch for aggressive takes.",
                 flies: [
-                    { id: "elk-hair-caddis", name: "Elk Hair Caddis", sizes: "12-18", description: "The definitive caddis adult pattern. Tie it in tan, olive, and black." },
+                    { id: "elk-hair-caddis", name: "Elk Hair Caddis", sizes: "12-18", description: "The definitive caddis adult pattern. Available in Tan, Olive, and Black." },
                     { id: "stimulator-orange", name: "Orange Stimulator", sizes: "10-14", description: "Attractor caddis that also imitates stoneflies. Floats forever." },
                     { id: "goddard-caddis", name: "Goddard Caddis", sizes: "12-16", description: "All-deer-hair pattern. Virtually unsinkable." }
                 ]
@@ -397,9 +395,9 @@ export const hatchData: Record<string, InsectCategory> = {
                 whenItWorks: "Fall, early spring, high water, low light. When you want the biggest fish in the river, throw a streamer.",
                 rigSuggestion: "7.5-9ft leader in 1x-3x. Strip retrieve with variable speed and frequent pauses.",
                 flies: [
-                    { id: "woolly-bugger", name: "Woolly Bugger (Olive/Black)", sizes: "4-10", description: "The most important fly ever tied. Leech, baitfish, big nymph — it's everything." },
+                    { id: "woolly-bugger", name: "Woolly Bugger", sizes: "4-10", description: "The most important fly ever tied. Available in Olive, Black, and White." },
                     { id: "clouser-minnow", name: "Clouser Minnow", sizes: "4-8", description: "Dives head-first on the strip — deadly for bass and trout alike." },
-                    { id: "simi-seal-leech", name: "Simi Seal Leech", sizes: "10-12", description: "Arizona staple. Long fibers pulse on every movement. Dead-drifted or stripped." },
+                    { id: "simi-seal-leech", name: "Simi Seal Leech", sizes: "10-12", description: "Arizona staple. Long fibers pulse on every movement." },
                     { id: "circus-peanut", name: "Circus Peanut", sizes: "2-4", description: "Articulated streamer that swims with incredible action." },
                     { id: "muddler-minnow", name: "Muddler Minnow", sizes: "4-8", description: "Classic sculpin imitation. Dead drift or strip aggressively." }
                 ]
@@ -417,7 +415,7 @@ export const hatchData: Record<string, InsectCategory> = {
                 whenItWorks: "Year-round. Especially effective after rain or high water when worms flush into the river.",
                 rigSuggestion: "Indicator rig with a worm suspended near the bottom. Or stripped on a floating line in stillwater.",
                 flies: [
-                    { id: "san-juan-worm", name: "San Juan Worm (Red)", sizes: "10-12", description: "The most consistently effective fly in most tailwaters." },
+                    { id: "san-juan-worm", name: "San Juan Worm", sizes: "10-12", description: "Simple red, pink, or tan chenille worm — deadly during high water." },
                     { id: "squirmy-worm", name: "Squirmy Worm", sizes: "10-12", description: "Silicone worm that wiggles on every current variation." },
                     { id: "olive-leech-bugger", name: "Olive Leech Bugger", sizes: "6-10", description: "Marabou tail pulses in every current. Deadly in stillwater." }
                 ]

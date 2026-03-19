@@ -15,6 +15,7 @@ export interface FlyEntry {
     whenItWorks: string;
     hatchCategory?: string;   // e.g. 'midges', 'mayflies' — links to hatch guide
     hatchStage?: string;       // e.g. 'larva', 'pupa', 'adult'
+    colors?: { name: string; hex: string }[];
 }
 
 // Helper to slugify a fly name for URL/lookup use
@@ -35,6 +36,12 @@ export const flyRegistry: Record<string, FlyEntry> = {
         whenItWorks: 'Any time, any season. When all else fails, tie on a Zebra Midge.',
         hatchCategory: 'midges',
         hatchStage: 'larva',
+        colors: [
+            { name: 'Black', hex: '#000000' },
+            { name: 'Red', hex: '#8B0000' },
+            { name: 'Olive', hex: '#556B2F' },
+            { name: 'Cream', hex: '#FFFDD0' }
+        ]
     },
     'grey-scud': {
         id: 'grey-scud',
@@ -55,6 +62,11 @@ export const flyRegistry: Record<string, FlyEntry> = {
         whenItWorks: 'During active hatches when fish are feeding in the film.',
         hatchCategory: 'midges',
         hatchStage: 'pupa',
+        colors: [
+            { name: 'Gray', hex: '#808080' },
+            { name: 'Black', hex: '#000000' },
+            { name: 'Olive', hex: '#556B2F' }
+        ]
     },
     'ruby-midge': {
         id: 'ruby-midge',
@@ -161,6 +173,11 @@ export const flyRegistry: Record<string, FlyEntry> = {
         sizes: '#14-18',
         description: 'Classic elk hair wing over a dubbed body. The definitive caddis adult imitation.',
         whenItWorks: 'Evening caddis hatches spring through fall. Skitter it on the surface.',
+        colors: [
+            { name: 'Tan', hex: '#D2B48C' },
+            { name: 'Olive', hex: '#556B2F' },
+            { name: 'Black', hex: '#000000' }
+        ]
     },
     'bwo-emerger': {
         id: 'bwo-emerger',
@@ -237,6 +254,11 @@ export const flyRegistry: Record<string, FlyEntry> = {
         whenItWorks: 'Year-round in the Gallatin, Madison, and other large western rivers.',
         hatchCategory: 'stoneflies',
         hatchStage: 'nymph',
+        colors: [
+            { name: 'Black', hex: '#000000' },
+            { name: 'Brown', hex: '#5C4033' },
+            { name: 'Coffee/Black', hex: '#3B2F2F' }
+        ]
     },
     'chubby-chernobyl': {
         id: 'chubby-chernobyl',
@@ -247,6 +269,12 @@ export const flyRegistry: Record<string, FlyEntry> = {
         whenItWorks: 'Late June through August on big western freestone rivers.',
         hatchCategory: 'stoneflies',
         hatchStage: 'adult',
+        colors: [
+            { name: 'Golden', hex: '#FFD700' },
+            { name: 'Royal', hex: '#4169E1' },
+            { name: 'Purple', hex: '#800080' },
+            { name: 'Red', hex: '#FF0000' }
+        ]
     },
     'sparkle-dun-pmd': {
         id: 'sparkle-dun-pmd',
@@ -273,6 +301,11 @@ export const flyRegistry: Record<string, FlyEntry> = {
         sizes: '#10-12',
         description: 'Simple red or pink chenille worm — deadly during high water and after rain.',
         whenItWorks: 'Spring run-off, after rain, or anytime the water is slightly elevated.',
+        colors: [
+            { name: 'Red', hex: '#FF0000' },
+            { name: 'Pink', hex: '#FFC0CB' },
+            { name: 'Tan', hex: '#D2B48C' }
+        ]
     },
     'baetis-cripple': {
         id: 'baetis-cripple',

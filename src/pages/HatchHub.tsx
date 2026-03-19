@@ -25,7 +25,7 @@ function HatchHub() {
   return (
     <div className="hatch-hub-container">
       <div className="container">
-        <header className="hub-header">
+        <header className="page-header">
           <span className="brand-badge">THE KNOWLEDGE BASE</span>
           <h1 className="brand-headline">HATCH GUIDE</h1>
           <p className="brand-subheadline">
@@ -83,10 +83,38 @@ function HatchHub() {
           background-color: var(--bg-primary);
         }
 
-        .hub-header {
-          margin-bottom: 2rem;
-          text-align: left;
+        .page-header {
+          padding-top: 4rem;
+          margin-bottom: 4rem;
           max-width: 720px;
+        }
+
+        .brand-badge {
+          display: inline-block;
+          font-size: 0.72rem;
+          font-weight: 700;
+          letter-spacing: 0.2em;
+          color: var(--accent-green);
+          margin-bottom: 1.25rem;
+          background: rgba(74, 222, 128, 0.08);
+          padding: 0.35rem 0.8rem;
+          border-radius: 4px;
+        }
+
+        .brand-headline {
+          font-size: clamp(2.5rem, 6vw, 4.5rem);
+          font-weight: 900;
+          letter-spacing: -0.04em;
+          margin-bottom: 1.5rem;
+          line-height: 0.95;
+          text-transform: uppercase;
+        }
+
+        .brand-subheadline {
+          font-size: 1.15rem;
+          color: var(--text-secondary);
+          line-height: 1.6;
+          margin-bottom: 2.5rem;
         }
 
         .hub-top-cta {

@@ -44,7 +44,7 @@ function App() {
             </div>
             <div className="footer-links">
               <a href="https://instagram.com/arrowheadflies" target="_blank" rel="noopener noreferrer">Instagram</a>
-              <a href="mailto:hello@arrowheadflies.com">Contact</a>
+              <a href="mailto:arrowheadflies@gmail.com">Contact</a>
             </div>
             <div className="footer-copyright">
               &copy; {new Date().getFullYear()} Arrowhead Flies. All rights reserved.

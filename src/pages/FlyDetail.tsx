@@ -1,4 +1,5 @@
 import { useParams, Link, useSearchParams, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { flyRegistry } from '../data/flyRegistry';
 import { ArrowLeft, BookOpen, ShoppingBag } from 'lucide-react';
 
@@ -13,6 +14,10 @@ export default function FlyDetail() {
   const fromStage = searchParams.get('stage'); // hatch stage slug
 
   const fly = flyId ? flyRegistry[flyId] : null;
+
+  const [selectedColor, setSelectedColor] = useState<{ name: string; hex: string } | null>(
+    fly?.colors?.[0] || null
+  );
 
   const goBack = () => navigate(-1);
 
@@ -108,6 +113,29 @@ export default function FlyDetail() {
                   <BookOpen size={14} style={{ display: 'inline', marginRight: '6px' }} />
                   View {fly.hatchCategory.charAt(0).toUpperCase() + fly.hatchCategory.slice(1)} Hatch Guide
                 </Link>
+              </div>
+            )}
+
+            {/* Color selection */}
+            {fly.colors && (
+              <div className="fd-colors-section">
+                <h3 className="section-title">Color Options</h3>
+                <div className="fd-color-grid">
+                  {fly.colors.map((color) => (
+                    <button
+                      key={color.name}
+                      className={`fd-color-btn ${selectedColor?.name === color.name ? 'active' : ''}`}
+                      onClick={() => setSelectedColor(color)}
+                      title={color.name}
+                    >
+                      <span
+                        className="color-swatch"
+                        style={{ backgroundColor: color.hex }}
+                      />
+                      <span className="color-name">{color.name}</span>
+                    </button>
+                  ))}
+                </div>
               </div>
             )}
 
@@ -308,6 +336,65 @@ export default function FlyDetail() {
 
         .mt-4 { margin-top: 1rem; }
         .inline-block { display: inline-block; }
+
+        /* Color Swatches */
+        .fd-colors-section {
+          background: rgba(255,255,255,0.02);
+          border: 1px solid rgba(255,255,255,0.07);
+          border-radius: 8px;
+          padding: 1.5rem;
+        }
+
+        .section-title {
+          font-size: 0.72rem;
+          text-transform: uppercase;
+          letter-spacing: 0.14em;
+          color: var(--text-secondary);
+          margin-bottom: 1rem;
+          font-weight: 700;
+        }
+
+        .fd-color-grid {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.75rem;
+        }
+
+        .fd-color-btn {
+          display: flex;
+          align-items: center;
+          gap: 0.6rem;
+          background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(255,255,255,0.1);
+          padding: 0.5rem 0.75rem;
+          border-radius: 6px;
+          cursor: pointer;
+          transition: all 0.2s;
+          color: var(--text-secondary);
+        }
+
+        .fd-color-btn:hover {
+          background: rgba(255,255,255,0.06);
+          border-color: rgba(255,255,255,0.2);
+        }
+
+        .fd-color-btn.active {
+          background: rgba(74, 222, 128, 0.1);
+          border-color: var(--accent-green);
+          color: var(--text-primary);
+        }
+
+        .color-swatch {
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .color-name {
+          font-size: 0.85rem;
+          font-weight: 500;
+        }
       `}</style>
     </div>
   );
