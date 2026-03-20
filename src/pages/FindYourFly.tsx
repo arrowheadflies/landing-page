@@ -280,7 +280,7 @@ export default function FindYourFly() {
             <div className="pack-upsell text-center mt-8">
               <h3>Need these flies?</h3>
               <p className="mb-4">Load your box with curated patterns specifically designed for this fishery.</p>
-              <Link to={`/shop-packs#${locData.packId}`} className="btn-secondary">Shop the {locData.packLabel}</Link>
+              <Link to="/shop-packs" className="btn-secondary">Shop the {locData.packLabel}</Link>
             </div>
 
             {/* Cross-link to hatch guide */}

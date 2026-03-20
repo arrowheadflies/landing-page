@@ -30,7 +30,6 @@ function App() {
             <Route path="/quiver/:location" element={<FindYourFly />} />
             <Route path="/shop-packs" element={<ShopPacks />} />
             <Route path="/hatch-guide" element={<HatchHub />} />
-            <Route path="/hatch-guide/:category" element={<HatchDetail />} />
             <Route path="/hatch-guide/:category/:stageId" element={<HatchDetail />} />
             <Route path="/fly/:flyId" element={<FlyDetail />} />
           </Routes>

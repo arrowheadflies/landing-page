@@ -1,4 +1,3 @@
-import React from 'react';
 import { Bug, ScrollText, Instagram, Search, Package } from 'lucide-react';
 import { Link } from 'react-router-dom';
 

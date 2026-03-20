@@ -1,8 +1,8 @@
 import Hero from '../components/Hero';
 import EmailCapture from '../components/EmailCapture';
 import { Link } from 'react-router-dom';
-import { Search, Bug, Package } from 'lucide-react';
-import storyImage from '../assets/media/IMG_1358.jpg';
+import { Search, Bug, Package } from 'lucide-react'; // Retained Package as it's used, removed MapPin as it's not.
+import storyImage from '../assets/media/IMG_1358.jpg'; // Retained storyImage as it's used.
 
 export default function Home() {
   return (
