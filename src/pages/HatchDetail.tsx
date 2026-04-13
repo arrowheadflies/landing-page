@@ -1,14 +1,20 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { Search, ChevronRight, ChevronDown, ChevronUp, ShoppingBag, ArrowLeft } from 'lucide-react'
+import { Search, ChevronRight, ChevronDown, ChevronUp, ArrowRight, ArrowLeft, Bug } from 'lucide-react'
 import { hatchData } from '../data/hatchData'
-import { slugify } from '../data/flyRegistry'
 
-function HatchDetail() {
+export default function HatchDetail() {
   const { category, stageId } = useParams();
   const data = category ? hatchData[category] : null;
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedStages, setExpandedStages] = useState<Record<string, boolean>>({});
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    if (data) {
+      document.title = `${data.name.split(' (')[0]} — Hatch Guide | Arrowhead Flies`;
+    }
+  }, [data, stageId]);
 
   const toggleStage = (id: string) => {
     setExpandedStages(prev => ({ ...prev, [id]: !prev[id] }));
@@ -16,133 +22,119 @@ function HatchDetail() {
 
   if (!data) {
     return (
-      <div className="hd-error container">
-        <h2>Category Not Found</h2>
-        <Link to="/hatch-guide" className="btn-secondary mt-4 inline-block">← Back to Hatch Guide</Link>
+      <div className="bg-charcoal min-h-screen flex flex-col items-center justify-center px-6 text-center">
+        <h1 className="text-2xl font-bold text-cream mb-3">Guide not found</h1>
+        <p className="text-mid-gray text-sm mb-6">This hatch category is coming soon.</p>
+        <Link to="/hatch-guide" className="btn btn-secondary">
+          <ArrowLeft size={16} /> Back to Hatch Guide
+        </Link>
       </div>
     );
   }
 
   const currentStage = stageId ? data.stages.find(s => s.id === stageId) : null;
 
-  // ─── STAGE DETAIL VIEW ─────────────────────────────────────────────────────
+  // ─── STAGE DETAIL VIEW ──────────────────────────────────────────
   if (stageId && currentStage) {
     return (
-      <div className="hd-page">
-        {/* Sticky nav */}
-        <div className="hd-sticky-nav">
-          <div className="container hd-sticky-inner">
-            <nav className="hd-breadcrumb hd-breadcrumb-sticky">
-              <Link to="/hatch-guide">Hatch Guide</Link>
-              <ChevronRight size={12} />
-              <Link to={`/hatch-guide/${category}`}>{data.name.split(' (')[0]}</Link>
-              <ChevronRight size={12} />
-              <span>{currentStage.name}</span>
-            </nav>
-            <div className="hd-sticky-actions">
-              <Link to={`/hatch-guide/${category}`} className="hd-sticky-back">
-                ← All Stages
-              </Link>
-              <Link to="/hatch-guide" className="hd-sticky-back">
-                Hatch Guide
-              </Link>
-              <Link to="/quiver" className="hd-sticky-back hd-sticky-quiver">
-                The Quiver
-              </Link>
-            </div>
-          </div>
-        </div>
-        <div className="hd-header hd-header-pushed">
-          <div className="container">
-            <nav className="hd-breadcrumb">
-              <Link to="/hatch-guide">Hatch Guide</Link>
-              <ChevronRight size={12} />
-              <Link to={`/hatch-guide/${category}`}>{data.name.split(' (')[0]}</Link>
-              <ChevronRight size={12} />
-              <span>{currentStage.name}</span>
-            </nav>
-            <span className="hd-eyebrow">{data.name.split(' (')[0]} — Life Stage</span>
-            <h1 className="hd-title">{currentStage.name}</h1>
-            <p className="hd-desc">{currentStage.description}</p>
-          </div>
-        </div>
+      <div className="bg-charcoal min-h-screen">
+        <div className="container-wide px-6 pt-24 pb-20">
+          {/* Breadcrumb */}
+          <nav className="flex items-center gap-2 text-sm text-mid-gray mb-8 flex-wrap" aria-label="Breadcrumb">
+            <Link to="/hatch-guide" className="hover:text-cream transition-colors">Hatch Guide</Link>
+            <span className="text-border">/</span>
+            <Link to={`/hatch-guide/${category}`} className="hover:text-cream transition-colors">{data.name.split(' (')[0]}</Link>
+            <span className="text-border">/</span>
+            <span className="text-cream">{currentStage.name}</span>
+          </nav>
 
-        {/* Content */}
-        <div className="container hd-stage-grid">
-          {/* Left col — tactics + actionable */}
-          <div className="hd-left">
-            <div className="hd-card">
-              <h3 className="hd-card-label">Tactical Approach</h3>
-              <ul className="hd-tactics-list">
-                {currentStage.tactics.map((t, i) => (
-                  <li key={i}>{t}</li>
-                ))}
-              </ul>
-            </div>
+          <div className="max-w-4xl">
+            <span className="badge bg-sage/10 text-sage border border-sage/20 mb-4">
+              <Bug size={12} /> Stage {currentStage.id}
+            </span>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-cream tracking-tight mb-4">
+              {currentStage.name}
+            </h1>
+            <p className="text-mid-gray text-base sm:text-lg leading-relaxed mb-8 max-w-2xl">
+              {currentStage.description}
+            </p>
+          </div>
 
-            <div className="hd-card">
-              <div className="hd-actionable-row">
-                <h3 className="hd-card-label">Confidence Rating</h3>
-                <div className="hd-stars">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <span key={i} className={i < currentStage.confidenceRating ? 'star-on' : 'star-off'}>★</span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-12">
+            {/* Sidebar */}
+            <div className="lg:col-span-4 space-y-4">
+              <div className="card p-6 space-y-4">
+                <h3 className="text-xs font-semibold text-mid-gray uppercase tracking-wider">Tactics</h3>
+                <ul className="space-y-3">
+                  {currentStage.tactics.map((t, i) => (
+                    <li key={i} className="text-cream/80 text-sm leading-relaxed flex gap-3">
+                      <span className="text-accent font-bold text-xs mt-0.5">{String(i + 1).padStart(2, '0')}</span>
+                      {t}
+                    </li>
                   ))}
+                </ul>
+              </div>
+
+              <div className="card p-6 space-y-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xs font-semibold text-mid-gray uppercase tracking-wider">Confidence</h3>
+                  <div className="flex gap-1">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <div key={i} className={`w-2.5 h-2.5 rounded-sm ${i < currentStage.confidenceRating ? 'bg-accent' : 'bg-border'}`} />
+                    ))}
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-border space-y-2">
+                  <span className="text-xs font-semibold text-mid-gray uppercase tracking-wider">When It Works</span>
+                  <p className="text-cream text-sm leading-relaxed">{currentStage.whenItWorks}</p>
+                </div>
+
+                <div className="pt-4 border-t border-border space-y-2">
+                  <span className="text-xs font-semibold text-mid-gray uppercase tracking-wider">Rig Suggestion</span>
+                  <p className="text-cream text-sm leading-relaxed bg-surface border border-border rounded-lg p-3 border-l-2 border-l-sage">
+                    {currentStage.rigSuggestion}
+                  </p>
                 </div>
               </div>
-
-              <h3 className="hd-card-label mt-6">When It Works</h3>
-              <p className="hd-body-text">{currentStage.whenItWorks}</p>
-
-              <h3 className="hd-card-label mt-6">Rig Suggestion</h3>
-              <p className="hd-rig-text">{currentStage.rigSuggestion}</p>
             </div>
 
-            <div className="hd-cta-stack">
-              <div className="hd-cta-block">
-                <p className="hd-cta-label">Not sure what to throw today?</p>
-                <Link to="/find-your-fly" className="btn-primary w-full text-center">Open The Quiver</Link>
+            {/* Patterns Grid */}
+            <div className="lg:col-span-8">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-sm font-semibold text-cream uppercase tracking-wider">Recommended Patterns</h2>
+                <span className="text-xs text-mid-gray">{currentStage.flies.length} patterns</span>
               </div>
-              <div className="hd-cta-block">
-                <p className="hd-cta-label">Need these flies in your box?</p>
-                <Link to="/shop-packs" className="btn-secondary w-full text-center">Shop Confidence Packs</Link>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {currentStage.flies.map(fly => (
+                  <div key={fly.id} className="card p-5">
+                    <div className="flex justify-between items-start mb-3">
+                      <h3 className="text-cream font-semibold">{fly.name}</h3>
+                      <span className="text-xs text-sage font-mono">#{fly.sizes}</span>
+                    </div>
+                    <p className="text-mid-gray text-sm leading-relaxed line-clamp-2">{fly.description}</p>
+                  </div>
+                ))}
               </div>
-            </div>
-          </div>
 
-          {/* Right col — fly patterns */}
-          <div className="hd-right">
-            <h2 className="hd-patterns-heading">Recommended Patterns</h2>
-            <p className="hd-patterns-sub">Tap any fly for the full breakdown and shop link.</p>
-            <div className="hd-patterns-list">
-              {currentStage.flies.map(fly => (
-                <Link key={fly.id} to={`/fly/${slugify(fly.name)}?from=hatch&cat=${category}&stage=${stageId}`} className="hd-fly-row">
-                  <div className="hd-fly-main">
-                    <span className="hd-fly-name">{fly.name}</span>
-                    <span className="hd-fly-desc">{fly.description}</span>
-                  </div>
-                  <div className="hd-fly-right">
-                    <span className="hd-fly-sizes">#{fly.sizes}</span>
-                    <ChevronRight size={14} className="hd-fly-arrow" />
-                  </div>
-                </Link>
-              ))}
-            </div>
-
-            <div className="hd-back-link">
-              <Link to={`/hatch-guide/${category}`}>
-                <ArrowLeft size={14} style={{ display: 'inline', marginRight: '4px' }} />
-                Back to {data.name.split(' (')[0]} overview
-              </Link>
+              <div className="mt-10 card p-8 text-center">
+                <h3 className="text-lg font-bold text-cream mb-2">Ready to fish?</h3>
+                <p className="text-mid-gray text-sm mb-6">Get the flies you need for this stage.</p>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <Link to="/shop" className="btn btn-primary">Shop Flies</Link>
+                  <Link to={`/hatch-guide/${category}`} className="btn btn-secondary">
+                    Back to {data.name.split(' (')[0]}
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-        <style>{hatchDetailStyles}</style>
       </div>
     );
   }
 
-  // ─── CATEGORY OVERVIEW (directory) ─────────────────────────────────────────
+  // ─── CATEGORY OVERVIEW ──────────────────────────────────────────
   const allFlies = data.stages.flatMap(s => s.flies);
   const filteredFlies = searchQuery
     ? allFlies.filter(f =>
@@ -152,134 +144,113 @@ function HatchDetail() {
     : null;
 
   return (
-    <div className="hd-page">
-      {/* Sticky nav */}
-      <div className="hd-sticky-nav">
-        <div className="container hd-sticky-inner">
-          <nav className="hd-breadcrumb hd-breadcrumb-sticky">
-            <Link to="/hatch-guide">Hatch Guide</Link>
-            <ChevronRight size={12} />
-            <span>{data.name.split(' (')[0]}</span>
-          </nav>
-          <div className="hd-sticky-actions">
-            <Link to="/hatch-guide" className="hd-sticky-back">
-              ← All Categories
-            </Link>
-            <Link to="/quiver" className="hd-sticky-back hd-sticky-quiver">
-              The Quiver
-            </Link>
+    <div className="bg-charcoal min-h-screen">
+      <div className="container-wide px-6 pt-24 pb-20">
+        {/* Breadcrumb */}
+        <nav className="flex items-center gap-2 text-sm text-mid-gray mb-8" aria-label="Breadcrumb">
+          <Link to="/hatch-guide" className="hover:text-cream transition-colors">Hatch Guide</Link>
+          <span className="text-border">/</span>
+          <span className="text-cream">{data.name.split(' (')[0]}</span>
+        </nav>
+
+        {/* Header */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12">
+          <div>
+            <span className="badge bg-accent/10 text-accent border border-accent/20 mb-4">
+              <Bug size={12} /> {data.stages.length} lifecycle stages
+            </span>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-cream tracking-tight mb-3">
+              {data.name.split(' (')[0]}
+            </h1>
+            <p className="text-mid-gray text-base leading-relaxed max-w-2xl">{data.overview}</p>
+          </div>
+
+          {/* Search */}
+          <div className="w-full lg:w-80">
+            <div className="card flex items-center gap-3 px-4 py-3 focus-within:border-accent transition-colors">
+              <Search size={16} className="text-mid-gray" />
+              <input
+                type="text"
+                placeholder="Search patterns..."
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+                className="bg-transparent border-none outline-none text-cream text-sm flex-1 placeholder:text-mid-gray/40"
+              />
+              {searchQuery && (
+                <button className="text-mid-gray hover:text-cream text-sm" onClick={() => setSearchQuery('')}>✕</button>
+              )}
+            </div>
           </div>
         </div>
-      </div>
-      <div className="hd-header hd-header-pushed">
-        <div className="container">
-          <nav className="hd-breadcrumb">
-            <Link to="/hatch-guide">Hatch Guide</Link>
-            <ChevronRight size={12} />
-            <span>{data.name.split(' (')[0]}</span>
-          </nav>
-          <span className="hd-eyebrow">Hatch Guide</span>
-          <h1 className="hd-title">{data.name.split(' (')[0]}</h1>
-          <p className="hd-desc hd-desc-wide">{data.overview}</p>
-        </div>
-      </div>
 
-      <div className="container hd-overview-body">
-        {/* Search bar */}
-        <div className="hd-search-bar">
-          <Search size={16} className="hd-search-icon" />
-          <input
-            type="text"
-            placeholder={`Search ${data.name.split(' (')[0].toLowerCase()} patterns...`}
-            value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
-            className="hd-search-input"
-          />
-          {searchQuery && (
-            <button className="hd-search-clear" onClick={() => setSearchQuery('')}>✕</button>
-          )}
-        </div>
-
-        {/* Search results */}
+        {/* Search Results */}
         {searchQuery && filteredFlies && (
-          <div className="hd-search-results">
-            <p className="hd-search-count">{filteredFlies.length} pattern{filteredFlies.length !== 1 ? 's' : ''} found</p>
-            <div className="hd-patterns-list">
+          <div className="mb-16">
+            <p className="text-xs font-semibold text-sage uppercase tracking-wider mb-4">{filteredFlies.length} results for "{searchQuery}"</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {filteredFlies.map(fly => (
-                <Link key={fly.id} to={`/fly/${slugify(fly.name)}?from=hatch&cat=${category}`} className="hd-fly-row">
-                  <div className="hd-fly-main">
-                    <span className="hd-fly-name">{fly.name}</span>
-                    <span className="hd-fly-desc">{fly.description}</span>
+                <div key={fly.id} className="card p-5">
+                  <div className="flex justify-between items-start mb-3">
+                    <h4 className="text-cream font-semibold">{fly.name}</h4>
+                    <span className="text-xs text-sage font-mono">#{fly.sizes}</span>
                   </div>
-                  <div className="hd-fly-right">
-                    <span className="hd-fly-sizes">#{fly.sizes}</span>
-                    <ChevronRight size={14} className="hd-fly-arrow" />
-                  </div>
-                </Link>
+                  <p className="text-mid-gray text-sm leading-relaxed line-clamp-2">{fly.description}</p>
+                </div>
               ))}
             </div>
           </div>
         )}
 
-        {/* Stage sections */}
+        {/* Stages Accordion */}
         {!searchQuery && (
-          <div className="hd-stages">
+          <div className="space-y-3">
             {data.stages.map((stage, idx) => {
-              const isOpen = expandedStages[stage.id] ?? true;
+              const isOpen = expandedStages[stage.id] ?? (idx === 0);
               return (
-                <div key={stage.id} className="hd-stage-block">
-                  {/* Stage header row */}
-                  <div className="hd-stage-header">
-                    <button
-                      className="hd-stage-toggle"
-                      onClick={() => toggleStage(stage.id)}
-                    >
-                      <span className="hd-stage-num">0{idx + 1}</span>
-                      <span className="hd-stage-name">{stage.name}</span>
-                      <span className="hd-stage-count">{stage.flies.length} patterns</span>
-                      {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-                    </button>
-                    <Link
-                      to={`/hatch-guide/${category}/${stage.id}`}
-                      className="hd-stage-tactics-link"
-                    >
-                      Tactics & Timing <ChevronRight size={14} />
-                    </Link>
-                  </div>
-
-                  {/* Stage meta strip */}
-                  {isOpen && (
-                    <div className="hd-stage-body">
-                      <div className="hd-stage-meta">
-                        <div className="hd-meta-pill">
-                          <span className="hd-meta-label">Confidence</span>
-                          <span className="hd-meta-stars">
-                            {Array.from({ length: 5 }).map((_, i) => (
-                              <span key={i} className={i < stage.confidenceRating ? 'star-on' : 'star-off'}>★</span>
-                            ))}
-                          </span>
-                        </div>
-                        <div className="hd-meta-pill">
-                          <span className="hd-meta-label">When</span>
-                          <span className="hd-meta-text">{stage.whenItWorks}</span>
-                        </div>
+                <div key={stage.id} className="card overflow-hidden">
+                  <button
+                    className="w-full flex items-center justify-between p-5 sm:p-6 text-left hover:bg-elevated/50 transition-colors"
+                    onClick={() => toggleStage(stage.id)}
+                    aria-expanded={isOpen}
+                  >
+                    <div className="flex items-center gap-5">
+                      <span className="text-xl sm:text-2xl font-bold text-border">{String(idx + 1).padStart(2, '0')}</span>
+                      <div>
+                        <h2 className="text-lg sm:text-xl font-bold text-cream">{stage.name}</h2>
+                        <span className="text-xs text-mid-gray">{stage.flies.length} patterns</span>
                       </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Link
+                        to={`/hatch-guide/${category}/${stage.id}`}
+                        className="hidden sm:flex items-center gap-2 btn btn-secondary text-xs px-4 py-2"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        Details <ChevronRight size={12} />
+                      </Link>
+                      {isOpen ? <ChevronUp size={20} className="text-mid-gray" /> : <ChevronDown size={20} className="text-mid-gray" />}
+                    </div>
+                  </button>
 
-                      {/* Fly list */}
-                      <div className="hd-patterns-list">
+                  {isOpen && (
+                    <div className="px-5 sm:px-6 pb-6 border-t border-border">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-5">
                         {stage.flies.map(fly => (
-                          <Link key={fly.id} to={`/fly/${slugify(fly.name)}?from=hatch&cat=${category}&stage=${stage.id}`} className="hd-fly-row">
-                            <div className="hd-fly-main">
-                              <span className="hd-fly-name">{fly.name}</span>
-                              <span className="hd-fly-desc">{fly.description}</span>
+                          <div key={fly.id} className="bg-charcoal border border-border rounded-lg p-4 hover:border-accent/30 transition-colors">
+                            <div className="flex justify-between items-start mb-2">
+                              <h4 className="text-cream font-medium text-sm">{fly.name}</h4>
+                              <span className="text-xs text-sage font-mono">#{fly.sizes}</span>
                             </div>
-                            <div className="hd-fly-right">
-                              <span className="hd-fly-sizes">#{fly.sizes}</span>
-                              <ChevronRight size={14} className="hd-fly-arrow" />
-                            </div>
-                          </Link>
+                            <p className="text-mid-gray text-xs leading-relaxed line-clamp-2">{fly.description}</p>
+                          </div>
                         ))}
                       </div>
+                      <Link
+                        to={`/hatch-guide/${category}/${stage.id}`}
+                        className="sm:hidden inline-flex items-center gap-2 text-accent text-sm font-medium mt-4"
+                      >
+                        View full stage details <ArrowRight size={14} />
+                      </Link>
                     </div>
                   )}
                 </div>
@@ -289,562 +260,17 @@ function HatchDetail() {
         )}
 
         {/* Bottom CTA */}
-        <div className="hd-bottom-cta">
-          <div className="hd-bottom-cta-inner">
-            <ShoppingBag size={20} className="hd-cta-icon" />
-            <div>
-              <h3>Need these flies?</h3>
-              <p>Get a pack curated for exactly these situations, or order individual patterns hand-tied to order.</p>
-            </div>
-            <div className="hd-bottom-cta-btns">
-              <Link to="/shop-packs" className="btn-primary">Shop Packs</Link>
-              <Link to="/find-your-fly" className="btn-secondary">The Quiver</Link>
-            </div>
+        <div className="mt-16 card p-8 sm:p-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div>
+            <h3 className="text-cream font-bold text-lg mb-1">Found your pattern?</h3>
+            <p className="text-mid-gray text-sm">Get the flies that match these hatch stages.</p>
+          </div>
+          <div className="flex gap-3 w-full sm:w-auto">
+            <Link to="/shop" className="btn btn-primary flex-1 sm:flex-initial">Shop Flies</Link>
+            <Link to="/quiver" className="btn btn-secondary flex-1 sm:flex-initial">Find Your Fly</Link>
           </div>
         </div>
       </div>
-
-      <style>{hatchDetailStyles}</style>
     </div>
   );
 }
-
-const hatchDetailStyles = `
-  .hd-page {
-    padding-top: 80px;
-    background: var(--bg-primary);
-    min-height: 100vh;
-  }
-
-  /* Sticky nav */
-  .hd-sticky-nav {
-    position: sticky;
-    top: 60px; /* sits just below the global navbar */
-    z-index: 90;
-    background: rgba(10, 11, 12, 0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255,255,255,0.07);
-  }
-
-  .hd-sticky-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 0.65rem;
-    padding-bottom: 0.65rem;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .hd-breadcrumb-sticky {
-    margin-bottom: 0 !important;
-  }
-
-  .hd-sticky-actions {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-  }
-
-  .hd-sticky-back {
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--text-secondary);
-    text-decoration: none;
-    padding: 0.35rem 0.75rem;
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 20px;
-    transition: all 0.15s;
-    white-space: nowrap;
-  }
-
-  .hd-sticky-back:hover { color: var(--text-primary); border-color: rgba(255,255,255,0.25); }
-
-  .hd-sticky-quiver {
-    color: var(--accent-green);
-    border-color: rgba(74, 222, 128, 0.25);
-  }
-
-  .hd-sticky-quiver:hover {
-    color: var(--accent-green);
-    background: rgba(74, 222, 128, 0.08);
-    border-color: rgba(74, 222, 128, 0.4);
-  }
-
-  /* Push header down below sticky nav */
-  .hd-header-pushed {
-    padding-top: 2.5rem !important;
-  }
-
-  .hd-error {
-    padding: 8rem 2rem;
-    text-align: center;
-  }
-
-  /* Header */
-  .hd-header {
-    padding: 4rem 0 3rem;
-    border-bottom: 1px solid rgba(255,255,255,0.07);
-  }
-
-  .hd-breadcrumb {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-  }
-
-  .hd-breadcrumb a {
-    color: var(--accent-green);
-    text-decoration: none;
-  }
-
-  .hd-breadcrumb a:hover { text-decoration: underline; }
-
-  .hd-breadcrumb svg { color: var(--text-secondary); opacity: 0.4; flex-shrink: 0; }
-
-  .hd-eyebrow {
-    display: block;
-    font-size: 0.73rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    color: var(--accent-green);
-    margin-bottom: 0.75rem;
-  }
-
-  .hd-title {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    margin-bottom: 1rem;
-    line-height: 1.1;
-  }
-
-  .hd-desc {
-    color: var(--text-secondary);
-    font-size: 1.05rem;
-    line-height: 1.7;
-    max-width: 680px;
-    margin: 0;
-  }
-
-  /* Overview layout */
-  .hd-overview-body {
-    padding-top: 3rem;
-    padding-bottom: 6rem;
-  }
-
-  /* Search */
-  .hd-search-bar {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 8px;
-    padding: 0.875rem 1.25rem;
-    max-width: 560px;
-    margin-bottom: 2.5rem;
-    transition: border-color 0.2s;
-  }
-
-  .hd-search-bar:focus-within { border-color: var(--accent-green); }
-
-  .hd-search-icon { color: var(--text-secondary); flex-shrink: 0; }
-
-  .hd-search-input {
-    background: transparent;
-    border: none;
-    color: var(--text-primary);
-    font-size: 1rem;
-    outline: none;
-    flex: 1;
-    font-family: inherit;
-  }
-
-  .hd-search-input::placeholder { color: var(--text-secondary); opacity: 0.5; }
-
-  .hd-search-clear {
-    background: transparent;
-    border: none;
-    color: var(--text-secondary);
-    cursor: pointer;
-    font-size: 0.75rem;
-    padding: 0.2rem 0.4rem;
-    border-radius: 3px;
-  }
-
-  .hd-search-results { margin-bottom: 3rem; }
-
-  .hd-search-count {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    margin-bottom: 1rem;
-  }
-
-  /* Stages */
-  .hd-stages {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    margin-bottom: 4rem;
-  }
-
-  .hd-stage-block {
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 10px;
-    overflow: hidden;
-  }
-
-  .hd-stage-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0;
-    background: rgba(255,255,255,0.02);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    flex-wrap: wrap;
-  }
-
-  .hd-stage-toggle {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 1.25rem 1.5rem;
-    background: transparent;
-    border: none;
-    color: var(--text-primary);
-    font-family: inherit;
-    cursor: pointer;
-    text-align: left;
-    flex: 1;
-    min-width: 0;
-    transition: background 0.15s;
-  }
-
-  .hd-stage-toggle:hover { background: rgba(255,255,255,0.03); }
-
-  .hd-stage-num {
-    font-size: 0.7rem;
-    font-weight: 700;
-    color: var(--text-secondary);
-    letter-spacing: 0.12em;
-    flex-shrink: 0;
-  }
-
-  .hd-stage-name {
-    font-size: 1rem;
-    font-weight: 700;
-    flex: 1;
-    min-width: 0;
-  }
-
-  .hd-stage-count {
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-    flex-shrink: 0;
-  }
-
-  .hd-stage-tactics-link {
-    display: flex;
-    align-items: center;
-    gap: 0.35rem;
-    padding: 0.75rem 1.5rem;
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--accent-green);
-    text-decoration: none;
-    border-left: 1px solid rgba(255,255,255,0.07);
-    white-space: nowrap;
-    transition: opacity 0.15s;
-    flex-shrink: 0;
-  }
-
-  .hd-stage-tactics-link:hover { opacity: 0.75; }
-
-  .hd-stage-body { padding: 1.5rem; }
-
-  .hd-stage-meta {
-    display: flex;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-  }
-
-  .hd-meta-pill {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-
-  .hd-meta-label {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-secondary);
-    font-weight: 600;
-    padding-top: 2px;
-    flex-shrink: 0;
-  }
-
-  .hd-meta-stars { display: flex; gap: 2px; }
-
-  .hd-meta-text {
-    font-size: 0.85rem;
-    color: var(--text-primary);
-    line-height: 1.4;
-    max-width: 400px;
-  }
-
-  /* Fly rows — used in both views */
-  .hd-patterns-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-  }
-
-  .hd-fly-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 0.875rem 1rem;
-    background: rgba(255,255,255,0.02);
-    border: 1px solid rgba(255,255,255,0.05);
-    border-radius: 6px;
-    text-decoration: none;
-    transition: all 0.15s;
-  }
-
-  .hd-fly-row:hover {
-    background: rgba(255,255,255,0.05);
-    border-color: rgba(255,255,255,0.12);
-    transform: translateX(3px);
-  }
-
-  .hd-fly-main {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-    min-width: 0;
-  }
-
-  .hd-fly-name {
-    color: var(--text-primary);
-    font-size: 0.95rem;
-    font-weight: 600;
-  }
-
-  .hd-fly-desc {
-    color: var(--text-secondary);
-    font-size: 0.8rem;
-    line-height: 1.4;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .hd-fly-right {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex-shrink: 0;
-  }
-
-  .hd-fly-sizes {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--accent-green);
-    white-space: nowrap;
-  }
-
-  .hd-fly-arrow { color: var(--text-secondary); opacity: 0.5; }
-
-  .hd-fly-row:hover .hd-fly-arrow { color: var(--accent-green); opacity: 1; }
-
-  /* Bottom CTA */
-  .hd-bottom-cta {
-    border-top: 1px solid rgba(255,255,255,0.07);
-    padding-top: 3rem;
-  }
-
-  .hd-bottom-cta-inner {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-    background: rgba(255,255,255,0.02);
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 10px;
-    padding: 2rem;
-  }
-
-  .hd-cta-icon { color: var(--accent-green); flex-shrink: 0; }
-
-  .hd-bottom-cta-inner h3 {
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin-bottom: 0.3rem;
-  }
-
-  .hd-bottom-cta-inner p {
-    color: var(--text-secondary);
-    font-size: 0.88rem;
-    line-height: 1.5;
-    margin: 0;
-    max-width: 400px;
-  }
-
-  .hd-bottom-cta-btns {
-    display: flex;
-    gap: 0.75rem;
-    flex-shrink: 0;
-    margin-left: auto;
-    flex-wrap: wrap;
-  }
-
-  /* Stage detail layout */
-  .hd-stage-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 3rem;
-    padding-top: 3rem;
-    padding-bottom: 6rem;
-  }
-
-  @media (min-width: 900px) {
-    .hd-stage-grid { grid-template-columns: 340px 1fr; }
-  }
-
-  .hd-left {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .hd-card {
-    background: rgba(255,255,255,0.02);
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 10px;
-    padding: 1.5rem;
-  }
-
-  .hd-card-label {
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--text-secondary);
-    font-weight: 700;
-    margin-bottom: 0.75rem;
-  }
-
-  .hd-actionable-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1.25rem;
-  }
-
-  .hd-actionable-row .hd-card-label { margin-bottom: 0; }
-
-  .mt-6 { margin-top: 1.5rem; }
-
-  .hd-stars { display: flex; gap: 2px; font-size: 1.1rem; }
-
-  .star-on { color: var(--accent-green); }
-  .star-off { color: rgba(255,255,255,0.1); }
-
-  .hd-body-text {
-    color: var(--text-primary);
-    font-size: 0.92rem;
-    line-height: 1.6;
-    margin: 0;
-  }
-
-  .hd-rig-text {
-    color: var(--text-primary);
-    font-size: 0.92rem;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0.75rem 1rem;
-    background: rgba(74, 222, 128, 0.05);
-    border-left: 3px solid rgba(74, 222, 128, 0.3);
-    border-radius: 0 4px 4px 0;
-  }
-
-  .hd-tactics-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-  }
-
-  .hd-tactics-list li {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-    line-height: 1.5;
-    padding-left: 1rem;
-    position: relative;
-  }
-
-  .hd-tactics-list li::before {
-    content: '—';
-    position: absolute;
-    left: 0;
-    color: var(--accent-green);
-    font-size: 0.75rem;
-  }
-
-  .hd-cta-stack { display: flex; flex-direction: column; gap: 0.75rem; }
-
-  .hd-cta-block {
-    background: rgba(255,255,255,0.02);
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 8px;
-    padding: 1.25rem;
-    text-align: center;
-  }
-
-  .hd-cta-label {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    margin-bottom: 0.75rem;
-    line-height: 1.4;
-  }
-
-  .hd-right h2, .hd-patterns-heading {
-    font-size: 1.4rem;
-    font-weight: 700;
-    margin-bottom: 0.4rem;
-  }
-
-  .hd-patterns-sub {
-    color: var(--text-secondary);
-    font-size: 0.85rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .hd-back-link {
-    margin-top: 2rem;
-    font-size: 0.85rem;
-  }
-
-  .hd-back-link a {
-    color: var(--accent-green);
-    text-decoration: none;
-  }
-
-  .w-full { width: 100%; }
-  .text-center { text-align: center; }
-  .mt-4 { margin-top: 1rem; }
-  .inline-block { display: inline-block; }
-`;
-
-export default HatchDetail

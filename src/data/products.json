@@ -1,0 +1,35 @@
+[
+  {
+    "id": "pocket-tin",
+    "name": "The Pocket Tin",
+    "tagline": "4 hand-tied flies. One deadly tin.",
+    "price": 24,
+    "description": "Our signature starter — four hand-selected, fish-tested patterns in a slim pocket tin. Built for your vest, your sling pack, or your back pocket. Every fly in this tin has been chosen because it catches fish, period.",
+    "details": "Each Pocket Tin ships with 4 hand-tied flies selected for versatility. Patterns rotate seasonally so you're always fishing what's working. The tin itself is a rugged, slim-profile aluminum case that fits anywhere.",
+    "flies": [
+      { "name": "Pheasant Tail Nymph", "size": "16", "type": "Nymph" },
+      { "name": "Elk Hair Caddis", "size": "14", "type": "Dry" },
+      { "name": "Zebra Midge", "size": "20", "type": "Midge" },
+      { "name": "Copper John", "size": "16", "type": "Nymph" }
+    ],
+    "count": "4 flies",
+    "category": "flies",
+    "badge": "Signature",
+    "stripeBuyButtonId": "buy_btn_1TCtpjIxcbTZggeJlmS1v3hR",
+    "image": "/products/pocket-tin.jpg"
+  },
+  {
+    "id": "sticker",
+    "name": "Arrowhead Sticker",
+    "tagline": "Rep the brand.",
+    "price": 5,
+    "description": "Premium die-cut vinyl sticker. Waterproof, UV-resistant, and built to last on your truck, cooler, fly box, or water bottle. 3\" x 3\".",
+    "details": "High-quality, outdoor-grade vinyl with a matte laminate finish. Designed to handle rain, sun, and years on the water.",
+    "flies": [],
+    "count": "1 sticker",
+    "category": "gear",
+    "badge": null,
+    "stripeBuyButtonId": "",
+    "image": "/products/sticker.jpg"
+  }
+]

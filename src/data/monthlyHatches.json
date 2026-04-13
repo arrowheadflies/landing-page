@@ -1,0 +1,102 @@
+[
+  {
+    "month": "January",
+    "season": "Winter",
+    "hatches": [
+      { "insect": "Midge", "name": "Chironomid", "sizes": "18–24", "patterns": "Zebra Midge, Griffith's Gnat, RS2" },
+      { "insect": "Winter Stonefly", "name": "Little Black Stone", "sizes": "14–18", "patterns": "Copper John Black, Prince Nymph" }
+    ]
+  },
+  {
+    "month": "February",
+    "season": "Winter",
+    "hatches": [
+      { "insect": "Midge", "name": "Chironomid", "sizes": "18–24", "patterns": "Mercury Midge, WD-40" },
+      { "insect": "Winter Stonefly", "name": "Little Black Stone", "sizes": "14–18", "patterns": "Pats Rubber Legs (Small)" }
+    ]
+  },
+  {
+    "month": "March",
+    "season": "Early Spring",
+    "hatches": [
+      { "insect": "BWO", "name": "Blue Winged Olive", "sizes": "18–20", "patterns": "Parachute Adams, RS2 Grey" },
+      { "insect": "Midge", "name": "Chironomid", "sizes": "20–22", "patterns": "Zebra Midge Red, Griffith's Gnat" }
+    ]
+  },
+  {
+    "month": "April",
+    "season": "Spring",
+    "hatches": [
+      { "insect": "BWO", "name": "Blue Winged Olive", "sizes": "16–18", "patterns": "BWO Sparkle Dun, Pheasant Tail" },
+      { "insect": "March Brown", "name": "Rhithrogena", "sizes": "12–14", "patterns": "March Brown Dry, Hare's Ear" },
+      { "insect": "Caddis", "name": "Grannom/Early Brown", "sizes": "14–16", "patterns": "Elk Hair Caddis, Peeking Caddis" }
+    ]
+  },
+  {
+    "month": "May",
+    "season": "Spring",
+    "hatches": [
+      { "insect": "Hendrickson", "name": "Ephemerella subvaria", "sizes": "12–14", "patterns": "Hendrickson Sparkle Dun" },
+      { "insect": "Caddis", "name": "Mother's Day Caddis", "sizes": "14–16", "patterns": "X-Caddis, Holy Grail" },
+      { "insect": "Sulphur", "name": "Ephemerella invaria", "sizes": "16–18", "patterns": "Sulphur Parachute, Pheasant Tail" }
+    ]
+  },
+  {
+    "month": "June",
+    "season": "Summer",
+    "hatches": [
+      { "insect": "PMD", "name": "Pale Morning Dun", "sizes": "16–18", "patterns": "PMD Sparkle Dun, Frenchie" },
+      { "insect": "Golden Stonefly", "name": "Hesperoperla pacifica", "sizes": "6–10", "patterns": "Pats Rubber Legs, Chubby Chernobyl" },
+      { "insect": "Yellow Sally", "name": "Isoperla", "sizes": "14–16", "patterns": "Yellow Sally Dry, Copper John" }
+    ]
+  },
+  {
+    "month": "July",
+    "season": "Summer",
+    "hatches": [
+      { "insect": "Trico", "name": "Tricorythodes", "sizes": "20–24", "patterns": "Trico Spinner, Zebra Midge" },
+      { "insect": "Terrestrial", "name": "Hopper/Ant/Beetle", "sizes": "8–16", "patterns": "Chernobyl Ant, Parachute Hopper" },
+      { "insect": "Caddis", "name": "Spotted Sedge", "sizes": "14–18", "patterns": "Elk Hair Caddis" }
+    ]
+  },
+  {
+    "month": "August",
+    "season": "Summer",
+    "hatches": [
+      { "insect": "Terrestrial", "name": "Hopper/Ant/Beetle", "sizes": "8–14", "patterns": "Chubby Chernobyl, Black Ant" },
+      { "insect": "Trico", "name": "Tricorythodes", "sizes": "20–22", "patterns": "Trico Spinner" },
+      { "insect": "PMD", "name": "Pale Morning Dun", "sizes": "18", "patterns": "PMD Emerger" }
+    ]
+  },
+  {
+    "month": "September",
+    "season": "Early Fall",
+    "hatches": [
+      { "insect": "BWO", "name": "Blue Winged Olive", "sizes": "18–20", "patterns": "Parachute Adams, RS2" },
+      { "insect": "Mahogany Dun", "name": "Isonychia", "sizes": "12–14", "patterns": "Mahogany Dun Dry, Prince Nymph" }
+    ]
+  },
+  {
+    "month": "October",
+    "season": "Fall",
+    "hatches": [
+      { "insect": "October Caddis", "name": "Dicosmoecus", "sizes": "8–10", "patterns": "October Caddis Dry, Orange Stimulator" },
+      { "insect": "BWO", "name": "Blue Winged Olive", "sizes": "18–22", "patterns": "Pheasant Tail, WD-40" }
+    ]
+  },
+  {
+    "month": "November",
+    "season": "Late Fall",
+    "hatches": [
+      { "insect": "Midge", "name": "Chironomid", "sizes": "20–24", "patterns": "Zebra Midge, Griffith's Gnat" },
+      { "insect": "BWO", "name": "Blue Winged Olive", "sizes": "20–22", "patterns": "Baetis Nymph" }
+    ]
+  },
+  {
+    "month": "December",
+    "season": "Winter",
+    "hatches": [
+      { "insect": "Midge", "name": "Chironomid", "sizes": "18–24", "patterns": "Zebra Midge, Black Beauty" }
+    ]
+  }
+]

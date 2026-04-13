@@ -3,108 +3,47 @@ import { Link } from 'react-router-dom';
 import heroBgImage from '../assets/media/IMG_3091.jpg';
 
 export default function Hero() {
-  const scrollToEmail = () => {
-    document.getElementById('giveaway')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
-    <section className="hero-section">
-      <div className="hero-overlay"></div>
-      <div className="hero-content container animate-fade-in">
-        <div className="hero-main delay-100">
-          <div className="hero-brand-mark">
-            <span className="brand-badge">EST. 2025</span>
-          </div>
-          <h2 className="brand-headline">Know What to Throw.<br />Catch More Fish.</h2>
-          <p className="brand-subheadline">
-            Data-driven fly recommendations + curated kits for the modern angler.
+    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden" aria-label="Hero">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <img
+          src={heroBgImage}
+          alt="Misty river morning on the water"
+          className="w-full h-full object-cover animate-slow-zoom"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-charcoal/50 via-charcoal/60 to-charcoal" />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 text-center px-6 py-32 max-w-3xl mx-auto">
+        <div className="space-y-8 animate-fade-in-up">
+          <span className="inline-block bg-accent/30 backdrop-blur-md border border-accent/30 text-white text-xs font-bold tracking-[0.2em] uppercase px-6 py-2.5 rounded-full shadow-lg">
+            Hand-Tied · Fish-Tested · Est. 2025
+          </span>
+
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-cream tracking-tight leading-[1.05]">
+            Flies that
+            <br />
+            <span className="text-warm-white">catch fish.</span>
+          </h1>
+
+          <p className="text-light-gray text-lg sm:text-xl max-w-xl mx-auto leading-relaxed font-light">
+            Curated fly selections hand-tied for North American trout waters.
+            No filler patterns — just what works.
           </p>
-          <div className="hero-cta delay-300">
-            <Link to="/quiver" className="btn-primary">
-              The Quiver <ArrowRight size={18} style={{ display: 'inline', marginLeft: '4px' }} />
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+            <Link to="/shop" className="btn btn-primary btn-lg group w-full sm:w-auto">
+              Shop Now
+              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </Link>
-            <button className="btn-secondary" onClick={scrollToEmail}>
-              Founders Giveaway
-            </button>
+            <Link to="/quiver" className="btn btn-secondary btn-lg w-full sm:w-auto">
+              Find Your Fly
+            </Link>
           </div>
         </div>
       </div>
-
-      <style>{`
-        .hero-section {
-          position: relative;
-          min-height: 100vh;
-          display: flex;
-          flex-direction: column;
-          background-image: url('${heroBgImage}'); /* Local misty river photo */
-          background-size: cover;
-          background-position: center;
-        }
-
-        .hero-overlay {
-          position: absolute;
-          top: 0; left: 0; right: 0; bottom: 0;
-          background: linear-gradient(to bottom, rgba(18, 20, 21, 0.4) 0%, rgba(18, 20, 21, 0.9) 100%);
-          z-index: 1;
-        }
-
-        .hero-content {
-          position: relative;
-          z-index: 2;
-          display: flex;
-          flex-direction: column;
-          flex: 1;
-          padding-top: 5rem;
-          padding-bottom: 4rem;
-          justify-content: center;
-        }
-
-        .hero-main {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          max-width: 800px;
-        }
-
-        .hero-brand-mark {
-          display: flex;
-          flex-direction: column;
-          gap: 0.75rem;
-          margin-bottom: 2rem;
-        }
-
-        .brand-badge {
-          display: inline-block;
-          font-size: 0.75rem;
-          font-weight: 800;
-          letter-spacing: 0.4em;
-          color: var(--color-cream);
-          text-transform: uppercase;
-        }
-
-        .brand-headline {
-          font-size: clamp(3rem, 8vw, 6rem);
-          font-weight: 700;
-          line-height: 1.1;
-          margin-bottom: 1.5rem;
-          letter-spacing: -0.02em;
-        }
-
-        .brand-subheadline {
-          font-size: clamp(1.1rem, 2vw, 1.5rem);
-          color: var(--text-secondary);
-          margin-bottom: 2.5rem;
-          max-width: 600px;
-          font-weight: 300;
-        }
-
-        .hero-cta {
-          display: flex;
-          gap: 1rem;
-          flex-wrap: wrap;
-        }
-      `}</style>
     </section>
   );
 }

@@ -1,312 +1,113 @@
-import { Link } from 'react-router-dom'
-import { hatchData } from '../data/hatchData'
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import monthlyHatches from '../data/monthlyHatches.json';
+import { Bug, ArrowRight } from 'lucide-react';
 
-const CATEGORY_IMAGES: Record<string, string> = {
-  midges: 'https://images.unsplash.com/photo-1590001150463-2f8318cb5f9d?q=80&w=2070&auto=format&fit=crop',
-  mayflies: 'https://images.unsplash.com/photo-1571630435-7e5c7b0a6ecd?q=80&w=2070&auto=format&fit=crop',
-  caddis: 'https://images.unsplash.com/photo-1516900448138-08149ef3879a?q=80&w=2070&auto=format&fit=crop',
-  stoneflies: '',
-  terrestrials: 'https://images.unsplash.com/photo-1626548307434-9e91e8aa8b44?q=80&w=2070&auto=format&fit=crop',
-  streamers: 'https://images.unsplash.com/photo-1567092736706-3d49f0f3e9a8?q=80&w=2070&auto=format&fit=crop',
-};
+export default function HatchHub() {
+  useEffect(() => {
+    document.title = 'Hatch Guide — Arrowhead Flies | Month-by-Month Fly Fishing Hatches';
+  }, []);
 
-const CATEGORY_SUBTITLES: Record<string, string> = {
-  midges: 'Year-round & indispensable',
-  mayflies: 'The iconic hatch',
-  caddis: 'Most widespread insect',
-  stoneflies: 'Giants of the aquatic world',
-  terrestrials: 'Land-based summer season',
-  streamers: 'Trophy fish & big water',
-};
-
-function HatchHub() {
-  const categories = Object.values(hatchData);
+  const getInsectLink = (insect: string) => {
+    const i = insect.toLowerCase();
+    if (i.includes('midge')) return '/hatch-guide/midges';
+    if (i.includes('mayfly') || i.includes('bwo') || i.includes('hendrickson') || i.includes('march brown') || i.includes('sulphur') || i.includes('pmd') || i.includes('trico') || i.includes('mahogany')) return '/hatch-guide/mayflies';
+    if (i.includes('caddis')) return '/hatch-guide/caddis';
+    if (i.includes('stonefly')) return '/hatch-guide/stoneflies';
+    if (i.includes('terrestrial') || i.includes('hopper') || i.includes('ant') || i.includes('beetle')) return '/hatch-guide/terrestrials';
+    if (i.includes('streamer') || i.includes('leech') || i.includes('baitfish')) return '/hatch-guide/streamers';
+    return null;
+  };
 
   return (
-    <div className="hatch-hub-container">
-      <div className="container">
-        <header className="page-header">
-          <span className="brand-badge">THE KNOWLEDGE BASE</span>
-          <h1 className="brand-headline">HATCH GUIDE</h1>
-          <p className="brand-subheadline">
-            Every hatch from midges to salmonflies — broken down by life stage, confidence rating, and exactly what to tie on.
-            Tap any category to get tactical.
+    <div className="bg-charcoal min-h-screen">
+      {/* Header */}
+      <section className="pt-28 pb-12 px-6 text-center">
+        <div className="container-narrow">
+          <p className="text-accent text-xs font-semibold tracking-[0.15em] uppercase mb-3 animate-fade-in">Reference</p>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-cream tracking-tight mb-4 animate-fade-in-up">
+            Hatch Guide
+          </h1>
+          <p className="text-mid-gray text-base sm:text-lg max-w-lg mx-auto leading-relaxed animate-fade-in-up delay-100">
+            Month-by-month guide to what's hatching on North American trout waters. Know what to throw before you get to the river.
           </p>
-        </header>
-
-        <div className="hub-top-cta">
-          <div>
-            <strong>Not sure what to throw?</strong>
-            <span> The Quiver matches your location and month to the exact right patterns.</span>
-          </div>
-          <Link to="/quiver" className="btn-primary hub-cta-btn">Open The Quiver</Link>
         </div>
+      </section>
 
-        <div className="category-grid">
-          {categories.map((cat, index) => (
-            <Link
-              to={`/hatch-guide/${cat.id}`}
-              key={cat.id}
-              className="category-card"
-            >
-              <div
-                className="card-image-bg"
-                style={{ backgroundImage: `url('${CATEGORY_IMAGES[cat.id] || CATEGORY_IMAGES.midges}')` }}
-              />
-              <div className="card-overlay" />
-              <div className="card-content">
-                <div className="card-top-row">
-                  <span className="cat-badge">GUIDE</span>
-                  <span className="cat-stage-count">{cat.stages.length} stages</span>
+      {/* Monthly Sections */}
+      <section className="section pt-0" aria-label="Monthly hatch data">
+        <div className="container-wide">
+          <div className="space-y-16">
+            {monthlyHatches.map((m) => (
+              <div key={m.month} className="scroll-mt-24" id={m.month.toLowerCase()}>
+                {/* Month Header */}
+                <div className="flex items-baseline gap-4 mb-6 border-b border-border pb-4">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-cream">{m.month}</h2>
+                  <span className="badge bg-sage/10 text-sage border border-sage/20">{m.season}</span>
                 </div>
-                <span className="cat-id">0{index + 1}</span>
-                <h3 className="cat-title">{cat.name.split(' (')[0]}</h3>
-                <p className="cat-subtitle">{CATEGORY_SUBTITLES[cat.id]}</p>
-                <p className="cat-desc">{cat.overview.slice(0, 100)}…</p>
-                <span className="explore-btn">EXPLORE GUIDE →</span>
+
+                {/* Hatch Cards */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {m.hatches.map((hatch, hIdx) => {
+                    const link = getInsectLink(hatch.insect);
+                    return (
+                      <div key={hIdx} className="card p-5 flex flex-col">
+                        <div className="flex items-start justify-between gap-3 mb-4">
+                          {link ? (
+                            <Link
+                              to={link}
+                              className="badge bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 transition-colors"
+                            >
+                              <Bug size={12} /> {hatch.insect}
+                            </Link>
+                          ) : (
+                            <span className="badge bg-surface text-mid-gray border border-border">
+                              <Bug size={12} /> {hatch.insect}
+                            </span>
+                          )}
+                          <span className="text-xs text-mid-gray font-mono">{hatch.sizes}</span>
+                        </div>
+
+                        <h3 className="text-cream font-semibold text-base mb-3">{hatch.name}</h3>
+
+                        <div className="mt-auto pt-3 border-t border-border">
+                          <p className="text-xs font-semibold text-mid-gray/60 uppercase tracking-wider mb-1">Top Patterns</p>
+                          <p className="text-cream/80 text-sm leading-relaxed">{hatch.patterns}</p>
+                        </div>
+
+                        {link && (
+                          <Link
+                            to={link}
+                            className="inline-flex items-center gap-2 text-accent text-xs font-medium mt-4 hover:gap-3 transition-all"
+                          >
+                            Learn More <ArrowRight size={12} />
+                          </Link>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-            </Link>
-          ))}
+            ))}
+          </div>
+
+          {/* Bottom CTA */}
+          <div className="mt-16 card p-8 sm:p-10 text-center">
+            <h3 className="text-xl font-bold text-cream mb-3">Not sure what to fish?</h3>
+            <p className="text-mid-gray text-sm leading-relaxed max-w-md mx-auto mb-6">
+              Use our fly selector to get a personalized recommendation based on your trip details.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link to="/quiver" className="btn btn-primary">
+                Find Your Fly
+              </Link>
+              <Link to="/shop" className="btn btn-secondary">
+                Shop Flies
+              </Link>
+            </div>
+          </div>
         </div>
-
-        <div className="hub-footer-cta" style={{ display: 'none' }}>
-          <h3>Don't know where to start?</h3>
-          <p>Let The Quiver match your location and month to the right insects — then come back here to go deeper.</p>
-          <Link to="/quiver" className="btn-primary">Open The Quiver</Link>
-        </div>
-      </div>
-
-      <style>{`
-        .hatch-hub-container {
-          padding: 10rem 0 8rem;
-          min-height: 100vh;
-          background-color: var(--bg-primary);
-        }
-
-        .page-header {
-          padding-top: 4rem;
-          margin-bottom: 4rem;
-          max-width: 720px;
-        }
-
-        .brand-badge {
-          display: inline-block;
-          font-size: 0.72rem;
-          font-weight: 700;
-          letter-spacing: 0.2em;
-          color: var(--accent-green);
-          margin-bottom: 1.25rem;
-          background: rgba(74, 222, 128, 0.08);
-          padding: 0.35rem 0.8rem;
-          border-radius: 4px;
-        }
-
-        .brand-headline {
-          font-size: clamp(2.5rem, 6vw, 4.5rem);
-          font-weight: 900;
-          letter-spacing: -0.04em;
-          margin-bottom: 1.5rem;
-          line-height: 0.95;
-          text-transform: uppercase;
-        }
-
-        .brand-subheadline {
-          font-size: 1.15rem;
-          color: var(--text-secondary);
-          line-height: 1.6;
-          margin-bottom: 2.5rem;
-        }
-
-        .hub-top-cta {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 1.5rem;
-          flex-wrap: wrap;
-          background: rgba(255,255,255,0.03);
-          border: 1px solid rgba(255,255,255,0.08);
-          border-radius: 10px;
-          padding: 1.25rem 1.75rem;
-          margin-bottom: 3rem;
-        }
-
-        .hub-top-cta strong { color: var(--text-primary); }
-        .hub-top-cta span { color: var(--text-secondary); font-size: 0.92rem; }
-
-        .hub-cta-btn { flex-shrink: 0; white-space: nowrap; }
-
-        .category-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-          gap: 2rem;
-          margin-bottom: 6rem;
-        }
-
-        @media (max-width: 768px) {
-          .hatch-hub-container { padding: 6rem 0; }
-          .hub-header { margin-bottom: 3rem; }
-          .category-grid { grid-template-columns: 1fr; gap: 1.25rem; }
-        }
-
-        .category-card {
-          position: relative;
-          height: 440px;
-          border-radius: 12px;
-          overflow: hidden;
-          text-decoration: none;
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-end;
-          padding: 2rem;
-          border: 1px solid var(--border-default);
-          transition: all 0.35s cubic-bezier(0.2, 0, 0.2, 1);
-        }
-
-        @media (max-width: 768px) {
-          .category-card { height: 300px; padding: 1.5rem; }
-        }
-
-        .category-card:hover {
-          transform: translateY(-6px);
-          border-color: rgba(255,255,255,0.2);
-        }
-
-        .card-image-bg {
-          position: absolute;
-          inset: 0;
-          background-size: cover;
-          background-position: center;
-          filter: grayscale(0.5) brightness(0.3);
-          transition: transform 0.5s ease, filter 0.4s ease;
-          z-index: 1;
-        }
-
-        .category-card:hover .card-image-bg {
-          transform: scale(1.04);
-          filter: grayscale(0.1) brightness(0.4);
-        }
-
-        .card-overlay {
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(to top, var(--bg-primary) 15%, rgba(0,0,0,0.2) 85%);
-          z-index: 2;
-        }
-
-        .card-content {
-          position: relative;
-          z-index: 3;
-        }
-
-        .card-top-row {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-          margin-bottom: 0.75rem;
-        }
-
-        .cat-badge {
-          display: inline-block;
-          font-size: 0.6rem;
-          font-weight: 800;
-          letter-spacing: 0.18em;
-          color: var(--color-cream);
-          background-color: var(--color-deep-red);
-          padding: 0.25rem 0.6rem;
-          border-radius: 3px;
-        }
-
-        .cat-stage-count {
-          font-size: 0.7rem;
-          color: var(--text-secondary);
-          letter-spacing: 0.08em;
-        }
-
-        .cat-id {
-          font-size: 0.7rem;
-          font-weight: 700;
-          color: var(--text-secondary);
-          display: block;
-          margin-bottom: 0.4rem;
-          letter-spacing: 0.2em;
-        }
-
-        .cat-title {
-          font-size: 2rem;
-          font-weight: 700;
-          color: var(--text-primary);
-          margin-bottom: 0.25rem;
-          letter-spacing: -0.01em;
-          line-height: 1.1;
-        }
-
-        @media (max-width: 768px) {
-          .cat-title { font-size: 1.6rem; }
-        }
-
-        .cat-subtitle {
-          font-size: 0.78rem;
-          color: var(--accent-green);
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.1em;
-          margin-bottom: 0.75rem;
-        }
-
-        .cat-desc {
-          color: var(--text-secondary);
-          font-size: 0.88rem;
-          line-height: 1.55;
-          margin-bottom: 1.25rem;
-          max-width: 320px;
-        }
-
-        @media (max-width: 768px) {
-          .cat-desc { display: none; }
-        }
-
-        .explore-btn {
-          font-size: 0.75rem;
-          font-weight: 700;
-          letter-spacing: 0.12em;
-          color: var(--text-primary);
-          text-transform: uppercase;
-          border-bottom: 1px solid rgba(255,255,255,0.3);
-          padding-bottom: 0.2rem;
-          display: inline-block;
-          transition: border-color 0.2s;
-        }
-
-        .category-card:hover .explore-btn {
-          border-color: var(--accent-green);
-          color: var(--accent-green);
-        }
-
-        .hub-footer-cta {
-          background: rgba(255,255,255,0.02);
-          border: 1px solid var(--border-color);
-          border-radius: 12px;
-          padding: 3rem;
-          text-align: center;
-          max-width: 600px;
-          margin: 0 auto;
-        }
-
-        .hub-footer-cta h3 {
-          font-size: 1.5rem;
-          font-weight: 700;
-          margin-bottom: 0.75rem;
-        }
-
-        .hub-footer-cta p {
-          color: var(--text-secondary);
-          font-size: 1rem;
-          line-height: 1.6;
-          margin-bottom: 2rem;
-        }
-      `}</style>
+      </section>
     </div>
-  )
+  );
 }
-
-export default HatchHub

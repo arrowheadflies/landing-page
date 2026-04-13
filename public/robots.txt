@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /newsletter-tool
+
+Sitemap: https://arrowheadflies.com/sitemap.xml
