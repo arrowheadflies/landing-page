@@ -4,12 +4,10 @@ import Hero from '../components/Hero';
 import { Search, Bug, Package, ArrowRight, Star, ShieldCheck, Truck } from 'lucide-react';
 import productsData from '../data/products.json';
 import storyImage from '../assets/media/brand/Tools.jpeg';
-import riverImage from '../assets/media/trips/IMG_3090.jpg';
 import midgeCloseUp from '../assets/media/flies/Midge Close Up.jpeg';
 import foamBeetle from '../assets/media/flies/Foam Beetle.jpeg';
 import blueCollarBugger from '../assets/media/flies/Blue Collar Bugger.jpeg';
 import midgeCluster from '../assets/media/flies/Midge Cluster Side.jpeg';
-import tin2Image from '../assets/media/products/Tin 2.jpeg';
 import gearImage from '../assets/media/trips/IMG_1358.jpg';
 
 export default function Home() {
