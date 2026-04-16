@@ -4,32 +4,44 @@
     "name": "The Pocket Tin",
     "tagline": "4 hand-tied flies. One deadly tin.",
     "price": 24,
-    "description": "Our signature starter — four hand-selected, fish-tested patterns in a slim pocket tin. Built for your vest, your sling pack, or your back pocket. Every fly in this tin has been chosen because it catches fish, period.",
-    "details": "Each Pocket Tin ships with 4 hand-tied flies selected for versatility. Patterns rotate seasonally so you're always fishing what's working. The tin itself is a rugged, slim-profile aluminum case that fits anywhere.",
+    "description": "Our signature selection — four hand-tied, fish-tested patterns in a slim pocket tin. Each tin includes two Zebra Midges, a Foam Beetle, and a Blue Collared Bugger, plus a fifth 'Guide's Choice' fly selected randomly — because you should always have an ace up your sleeve.",
+    "details": "Each Pocket Tin ships with 5 total flies (4 core patterns + 1 random). The tin itself is a rugged, slim-profile aluminum case that fits anywhere. Built for everything from your backyard creek to high-alpine lakes.",
     "flies": [
-      { "name": "Pheasant Tail Nymph", "size": "16", "type": "Nymph" },
-      { "name": "Elk Hair Caddis", "size": "14", "type": "Dry" },
       { "name": "Zebra Midge", "size": "20", "type": "Midge" },
-      { "name": "Copper John", "size": "16", "type": "Nymph" }
+      { "name": "Zebra Midge", "size": "20", "type": "Midge" },
+      { "name": "Foam Beetle", "size": "14", "type": "Terrestrial" },
+      { "name": "Blue Collared Bugger", "size": "10", "type": "Streamer" }
     ],
-    "count": "4 flies",
+    "count": "5 flies",
     "category": "flies",
     "badge": "Signature",
-    "stripeBuyButtonId": "buy_btn_1TCtpjIxcbTZggeJlmS1v3hR",
-    "image": "/products/pocket-tin.jpg"
+    "stripeBuyButtonId": "https://buy.stripe.com/4gMcN65lg0qG2ubbV404805",
+    "image": "/media/products/Tin 1.jpeg",
+    "images": [
+      "/media/products/Tin 1.jpeg",
+      "/media/products/Tin 2.jpeg",
+      "/media/products/Tin 3.jpeg",
+      "/media/flies/Midge Cluster Side.jpeg",
+      "/media/flies/Midge Close Up.jpeg",
+      "/media/flies/Foam Beetle.jpeg",
+      "/media/flies/Blue Collar Bugger.jpeg"
+    ]
   },
   {
     "id": "sticker",
     "name": "Arrowhead Sticker",
     "tagline": "Rep the brand.",
     "price": 5,
-    "description": "Premium die-cut vinyl sticker. Waterproof, UV-resistant, and built to last on your truck, cooler, fly box, or water bottle. 3\" x 3\".",
+    "description": "Premium die-cut vinyl sticker. Waterproof, UV-resistant, and built to last on your truck, cooler, fly box, or water bottle. 2\" x 2\".",
     "details": "High-quality, outdoor-grade vinyl with a matte laminate finish. Designed to handle rain, sun, and years on the water.",
     "flies": [],
     "count": "1 sticker",
     "category": "gear",
     "badge": null,
-    "stripeBuyButtonId": "",
-    "image": "/products/sticker.jpg"
+    "stripeBuyButtonId": "https://buy.stripe.com/aFa14o6pkb5kgl13oy04806",
+    "image": "/media/products/Arrowhead Logo Sticker.jpeg",
+    "images": [
+      "/media/products/Arrowhead Logo Sticker.jpeg"
+    ]
   }
 ]

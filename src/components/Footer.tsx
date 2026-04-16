@@ -18,7 +18,7 @@ export default function Footer() {
             </Link>
             <p className="text-mid-gray text-sm leading-relaxed max-w-sm">
               Hand-tied trout flies built for results on the water.
-              Based in the Ozarks.
+              Based in the Midwest.
             </p>
             <div className="flex gap-3">
               <a

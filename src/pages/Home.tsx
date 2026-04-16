@@ -3,8 +3,14 @@ import { Link } from 'react-router-dom';
 import Hero from '../components/Hero';
 import { Search, Bug, Package, ArrowRight, Star, ShieldCheck, Truck } from 'lucide-react';
 import productsData from '../data/products.json';
-import storyImage from '../assets/media/IMG_1358.jpg';
-import riverImage from '../assets/media/IMG_3090.jpg';
+import storyImage from '../assets/media/brand/Tools.jpeg';
+import riverImage from '../assets/media/trips/IMG_3090.jpg';
+import midgeCloseUp from '../assets/media/flies/Midge Close Up.jpeg';
+import foamBeetle from '../assets/media/flies/Foam Beetle.jpeg';
+import blueCollarBugger from '../assets/media/flies/Blue Collar Bugger.jpeg';
+import midgeCluster from '../assets/media/flies/Midge Cluster Side.jpeg';
+import tin2Image from '../assets/media/products/Tin 2.jpeg';
+import gearImage from '../assets/media/trips/IMG_1358.jpg';
 
 export default function Home() {
   useEffect(() => {
@@ -129,38 +135,46 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── ABOUT / STORY ─────────────────────────── */}
-      <section className="section border-t border-border" aria-label="About Arrowhead Flies">
-        <div className="container-default">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <div className="relative rounded-xl overflow-hidden aspect-[4/3] lg:aspect-[3/4]">
-              <img
-                src={storyImage}
-                alt="Fishing on the river — the Arrowhead way"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent" />
-            </div>
+      {/* ── ABOUT / STORY / IMMERSIVE SECTION ─────────────────────────── */}
+      <section className="relative h-[80vh] flex items-center overflow-hidden" aria-label="About Arrowhead Flies">
+        <div className="absolute inset-0 z-0">
+          <img
+            src={storyImage}
+            alt="Hand-tying flies — the Arrowhead way"
+            className="w-full h-full object-cover"
+            style={{ 
+              filter: 'brightness(0.35) contrast(1.1)',
+              objectPosition: 'center 50%'
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-charcoal via-transparent to-charcoal/80" />
+        </div>
 
-            <div className="space-y-6 lg:py-8">
-              <p className="text-accent text-xs font-semibold tracking-[0.15em] uppercase">Our Story</p>
-              <h2 className="text-3xl sm:text-4xl font-bold text-cream tracking-tight leading-tight">
-                Built by an angler,<br />for anglers.
-              </h2>
-              <div className="space-y-4 text-mid-gray text-base leading-relaxed">
-                <p>
-                  Arrowhead started on the vise — tying patterns for myself and friends
-                  who kept asking "what are you throwing?" Now those same
-                  flies are available to anyone who wants to fish with confidence.
-                </p>
-                <p>
-                  Every fly is hand-tied with quality materials and fish-tested before
-                  it goes into a tin. No bulk filler patterns. Just flies that work.
-                </p>
-              </div>
-              <Link to="/shop" className="btn btn-primary group mt-2">
+        <div className="container-default relative z-10">
+          <div className="max-w-2xl">
+            <p className="text-accent text-xs font-semibold tracking-[0.2em] uppercase mb-4 animate-fade-in">Our Story</p>
+            <h2 className="text-4xl sm:text-6xl font-bold text-cream tracking-tight leading-[1.1] mb-8">
+              Built by an angler,<br />
+              <span className="text-warm-white/90">for anglers.</span>
+            </h2>
+            <div className="space-y-6 text-cream/80 text-lg leading-relaxed max-w-xl">
+              <p>
+                Arrowhead started on the vise — tying patterns for myself and friends
+                who kept asking "what are you throwing?" Now those same
+                flies are available to anyone who wants to fish with confidence.
+              </p>
+              <p>
+                Every fly is hand-tied with quality materials and fish-tested before
+                it goes into a tin. No bulk filler patterns. Just flies that work.
+              </p>
+            </div>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Link to="/shop" className="btn btn-primary group px-8">
                 Shop the Tin
-                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              </Link>
+              <Link to="/hatch-guide" className="btn btn-outline border-cream/20 text-cream hover:bg-cream/10">
+                View Hatch Guide
               </Link>
             </div>
           </div>
@@ -185,9 +199,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── EMAIL / COMMUNITY ─────────────────────────── */}
-      <section className="section border-t border-border bg-surface/30" aria-label="Newsletter signup">
-        <div className="container-narrow text-center space-y-8">
+      {/* ── EMAIL / COMMUNITY / NEWSLETTER ─────────────────────────── */}
+      <section className="relative py-24 sm:py-32 overflow-hidden border-t border-border" aria-label="Newsletter signup">
+        {/* Background Overlay Image */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src={gearImage}
+            alt=""
+            className="w-full h-full object-cover opacity-20 grayscale brightness-50"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/40 to-charcoal" />
+        </div>
+
+        <div className="container-narrow relative z-10 text-center space-y-8">
           <div className="space-y-4">
             <p className="text-accent text-xs font-semibold tracking-[0.15em] uppercase">Stay Connected</p>
             <h2 className="text-3xl sm:text-4xl font-bold text-cream tracking-tight">
@@ -209,15 +233,15 @@ export default function Home() {
               name="email"
               required
               placeholder="Enter your email"
-              className="flex-1 bg-surface border border-border text-cream text-sm px-5 py-3 rounded-lg focus:outline-none focus:border-accent transition-colors placeholder:text-mid-gray/50"
+              className="flex-1 bg-surface/60 backdrop-blur-sm border border-border text-cream text-sm px-5 py-3 rounded-lg focus:outline-none focus:border-accent transition-colors placeholder:text-mid-gray/50"
             />
-            <button type="submit" className="btn btn-primary px-8 py-3">
+            <button type="submit" className="btn btn-primary px-8 py-3 shadow-xl">
               Subscribe
             </button>
           </form>
 
           <p className="text-xs text-mid-gray/40">
-            Join 500+ anglers. Unsubscribe anytime.
+            Unsubscribe anytime.
           </p>
         </div>
       </section>
@@ -225,20 +249,30 @@ export default function Home() {
       {/* ── INSTAGRAM CTA ─────────────────────────── */}
       <section className="section border-t border-border" aria-label="Follow us">
         <div className="container-default">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-            {[storyImage, riverImage, storyImage, riverImage].map((img, i) => (
+          <div className="text-center mb-10">
+            <h3 className="text-xl font-bold text-cream mb-2">On the Water</h3>
+            <p className="text-mid-gray text-sm">Join the community and see the flies in action.</p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            {[
+              { img: midgeCloseUp, alt: "Close up of a midge" },
+              { img: foamBeetle, alt: "Foam beetle pattern" },
+              { img: blueCollarBugger, alt: "Blue collar bugger streamer" },
+              { img: midgeCluster, alt: "Midge cluster on the water" }
+            ].map((item, i) => (
               <a
                 key={i}
                 href="https://instagram.com/arrowheadflies"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="aspect-square rounded-lg overflow-hidden group"
+                className="aspect-square rounded-xl overflow-hidden group bg-surface relative"
               >
                 <img
-                  src={img}
-                  alt="Arrowhead Flies on Instagram"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 grayscale-[0.2] group-hover:grayscale-0"
+                  src={item.img}
+                  alt={item.alt}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 brightness-[0.8] group-hover:brightness-100"
                 />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
               </a>
             ))}
           </div>

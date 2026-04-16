@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import productsData from '../data/products.json';
 import { CONFIG } from '../config';
@@ -8,11 +8,13 @@ export default function ProductDetail() {
   const { productId } = useParams<{ productId: string }>();
 
   const product = useMemo(() => productsData.find(p => p.id === productId), [productId]);
+  const [selectedImage, setSelectedImage] = useState<string>('');
 
   useEffect(() => {
     window.scrollTo(0, 0);
     if (product) {
       document.title = `${product.name} — Arrowhead Flies`;
+      setSelectedImage(product.image);
     }
   }, [productId, product]);
 
@@ -55,17 +57,35 @@ export default function ProductDetail() {
 
         {/* Product Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
-          {/* Image */}
-          <div className="aspect-square bg-elevated rounded-xl overflow-hidden border border-border">
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-full h-full object-cover"
-              onError={(e) => {
-                const el = e.target as HTMLImageElement;
-                el.style.display = 'none';
-              }}
-            />
+          {/* Image Gallery */}
+          <div className="space-y-4">
+            <div className="aspect-square bg-elevated rounded-xl overflow-hidden border border-border">
+              <img
+                src={selectedImage}
+                alt={product.name}
+                className="w-full h-full object-cover transition-all duration-500"
+                onError={(e) => {
+                  const el = e.target as HTMLImageElement;
+                  el.style.display = 'none';
+                }}
+              />
+            </div>
+            
+            {(product as any).images && (product as any).images.length > 1 && (
+              <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
+                {(product as any).images.map((img: string, i: number) => (
+                  <button
+                    key={i}
+                    onClick={() => setSelectedImage(img)}
+                    className={`aspect-square rounded-md overflow-hidden border-2 transition-all ${
+                      selectedImage === img ? 'border-accent scale-95' : 'border-transparent opacity-60 hover:opacity-100'
+                    }`}
+                  >
+                    <img src={img} alt="" className="w-full h-full object-cover" />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Details */}
@@ -86,11 +106,24 @@ export default function ProductDetail() {
             {/* Buy Button via Stripe */}
             {product.stripeBuyButtonId ? (
               <div className="stripe-buy-area">
-                {/* @ts-ignore */}
-                <stripe-buy-button
-                  buy-button-id={product.stripeBuyButtonId}
-                  publishable-key={CONFIG.STRIPE_PUBLISHABLE_KEY}
-                />
+                {product.stripeBuyButtonId.startsWith('http') ? (
+                  <a
+                    href={product.stripeBuyButtonId}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-primary btn-lg w-full flex items-center justify-center gap-2"
+                  >
+                    Buy Now — ${product.price}
+                  </a>
+                ) : (
+                  <>
+                    {/* @ts-ignore */}
+                    <stripe-buy-button
+                      buy-button-id={product.stripeBuyButtonId}
+                      publishable-key={CONFIG.STRIPE_PUBLISHABLE_KEY}
+                    />
+                  </>
+                )}
               </div>
             ) : (
               <a
