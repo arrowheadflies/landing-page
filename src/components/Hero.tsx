@@ -29,7 +29,7 @@ export default function Hero() {
           </h1>
 
           <p className="text-light-gray text-lg sm:text-xl max-w-xl mx-auto leading-relaxed font-light">
-            Curated fly selections hand-tied for North American trout waters.
+            Curated fly selections hand-tied for any water.
             No filler patterns — just what works.
           </p>
 
@@ -38,8 +38,8 @@ export default function Hero() {
               Shop Now
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </Link>
-            <Link to="/quiver" className="btn btn-secondary btn-lg w-full sm:w-auto">
-              Find Your Fly
+            <Link to="/the-lab" className="btn btn-secondary btn-lg w-full sm:w-auto">
+              The Lab
             </Link>
           </div>
         </div>

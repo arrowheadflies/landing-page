@@ -87,16 +87,8 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
-                icon: <Search size={24} />,
-                step: '01',
-                title: 'Find Your Fly',
-                desc: 'Tell us where you fish and when. Our selector recommends the right rig for your water.',
-                link: '/quiver',
-                cta: 'Try the Selector',
-              },
-              {
                 icon: <Bug size={24} />,
-                step: '02',
+                step: '01',
                 title: 'Know the Hatch',
                 desc: 'Browse our month-by-month hatch guide. Understand what\'s hatching and what to fish.',
                 link: '/hatch-guide',
@@ -104,11 +96,19 @@ export default function Home() {
               },
               {
                 icon: <Package size={24} />,
-                step: '03',
+                step: '02',
                 title: 'Get the Flies',
                 desc: 'Shop hand-tied patterns built for the conditions you\'ll actually face on the water.',
                 link: '/shop',
                 cta: 'Shop Now',
+              },
+              {
+                icon: <Search size={24} />,
+                step: '03',
+                title: 'The Lab',
+                desc: 'Master the art of tying with our interactive step-by-step guides. Build your quiver with confidence.',
+                link: '/the-lab',
+                cta: 'Enter The Lab',
               },
             ].map((item) => (
               <Link

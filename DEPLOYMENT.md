@@ -50,6 +50,18 @@ npm install gh-pages --save-dev
 
 ---
 
+## Testing Locally
+
+Use this when you want to preview your changes in the browser before committing or deploying.
+
+```bash
+npm run dev
+```
+
+This will start a local development server. You can view the site by opening the URL provided in the terminal (usually `http://localhost:5173`). Press `Ctrl + C` in the terminal to stop the server when you are done.
+
+---
+
 ## Daily Workflow — Committing to `main`
 
 Use this when you've made code changes and want to save your work. This does **not** update the live site.

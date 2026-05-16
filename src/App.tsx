@@ -10,9 +10,9 @@ import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import Shop from './pages/Shop';
 import ProductDetail from './pages/ProductDetail';
-import FindYourFly from './pages/FindYourFly';
 import HatchHub from './pages/HatchHub';
 import HatchDetail from './pages/HatchDetail';
+import FlyGuide from './pages/FlyGuide';
 
 function App() {
   return (
@@ -34,10 +34,10 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/shop" element={<Shop />} />
                 <Route path="/product/:productId" element={<ProductDetail />} />
-                <Route path="/quiver" element={<FindYourFly />} />
                 <Route path="/hatch-guide" element={<HatchHub />} />
                 <Route path="/hatch-guide/:category" element={<HatchDetail />} />
                 <Route path="/hatch-guide/:category/:stageId" element={<HatchDetail />} />
+                <Route path="/the-lab" element={<FlyGuide />} />
               </Routes>
             </Suspense>
           </main>

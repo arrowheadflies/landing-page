@@ -20,7 +20,7 @@ export default function CartDrawer() {
       url.searchParams.set('prefilled_quantity', item.quantity.toString());
       window.location.href = url.toString();
     } else if (cart.length > 1) {
-      // For multiple items, link to first item's Stripe
+      // For multiple items, link to first item's Stripe for now
       const item = cart[0];
       window.location.href = item.paymentLink;
     }

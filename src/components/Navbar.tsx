@@ -26,8 +26,8 @@ export default function Navbar() {
 
   const links = [
     { name: 'Shop', path: '/shop' },
-    { name: 'Find Your Fly', path: '/quiver' },
     { name: 'Hatch Guide', path: '/hatch-guide' },
+    { name: 'The Lab', path: '/the-lab' },
   ];
 
 

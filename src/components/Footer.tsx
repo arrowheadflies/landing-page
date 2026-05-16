@@ -17,7 +17,7 @@ export default function Footer() {
               <span className="text-white font-bold text-xl tracking-tight">Arrowhead Flies</span>
             </Link>
             <p className="text-mid-gray text-sm leading-relaxed max-w-sm">
-              Hand-tied trout flies built for results on the water.
+              Hand-tied flies built for results on the water.
               Based in the Midwest.
             </p>
             <div className="flex gap-3">
@@ -46,7 +46,7 @@ export default function Footer() {
             <ul className="space-y-2.5">
               <li><Link to="/" className="text-sm text-mid-gray hover:text-cream transition-colors">Home</Link></li>
               <li><Link to="/shop" className="text-sm text-mid-gray hover:text-cream transition-colors">Shop</Link></li>
-              <li><Link to="/quiver" className="text-sm text-mid-gray hover:text-cream transition-colors">Find Your Fly</Link></li>
+              <li><Link to="/the-lab" className="text-sm text-mid-gray hover:text-cream transition-colors">The Lab</Link></li>
               <li><Link to="/hatch-guide" className="text-sm text-mid-gray hover:text-cream transition-colors">Hatch Guide</Link></li>
               <li>
                 <a

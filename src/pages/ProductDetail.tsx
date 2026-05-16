@@ -2,10 +2,12 @@ import { useEffect, useMemo, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import productsData from '../data/products.json';
 import { CONFIG } from '../config';
-import { ArrowLeft, ShieldCheck, Truck, Star } from 'lucide-react';
+import { ArrowLeft, ShieldCheck, Truck, Star, ShoppingCart } from 'lucide-react';
+import { useCart } from '../context/CartContext';
 
 export default function ProductDetail() {
   const { productId } = useParams<{ productId: string }>();
+  const { addToCart } = useCart();
 
   const product = useMemo(() => productsData.find(p => p.id === productId), [productId]);
   const [selectedImage, setSelectedImage] = useState<string>('');
@@ -18,19 +20,6 @@ export default function ProductDetail() {
     }
   }, [productId, product]);
 
-  // Load Stripe Buy Button script
-  useEffect(() => {
-    if (!product?.stripeBuyButtonId) return;
-    const existing = document.querySelector('script[src*="buy-button.js"]');
-    if (existing) return;
-    const script = document.createElement('script');
-    script.src = 'https://js.stripe.com/v3/buy-button.js';
-    script.async = true;
-    document.body.appendChild(script);
-    return () => {
-      if (document.body.contains(script)) document.body.removeChild(script);
-    };
-  }, [product]);
 
   if (!product) {
     return (
@@ -103,36 +92,21 @@ export default function ProductDetail() {
               <p className="text-accent text-3xl font-bold">${product.price}</p>
             </div>
 
-            {/* Buy Button via Stripe */}
-            {product.stripeBuyButtonId ? (
-              <div className="stripe-buy-area">
-                {product.stripeBuyButtonId.startsWith('http') ? (
-                  <a
-                    href={product.stripeBuyButtonId}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-primary btn-lg w-full flex items-center justify-center gap-2"
-                  >
-                    Buy Now — ${product.price}
-                  </a>
-                ) : (
-                  <>
-                    {/* @ts-ignore */}
-                    <stripe-buy-button
-                      buy-button-id={product.stripeBuyButtonId}
-                      publishable-key={CONFIG.STRIPE_PUBLISHABLE_KEY}
-                    />
-                  </>
-                )}
-              </div>
-            ) : (
-              <a
-                href={`mailto:${CONFIG.CONTACT_EMAIL}?subject=Order: ${product.name}`}
-                className="btn btn-primary btn-lg w-full"
-              >
-                Contact to Order — ${product.price}
-              </a>
-            )}
+            {/* Buy Button via Cart */}
+            <button
+              onClick={() => {
+                addToCart({
+                  id: product.id,
+                  name: product.name,
+                  price: product.price,
+                  paymentLink: product.stripeBuyButtonId || ''
+                });
+              }}
+              className="btn btn-primary btn-lg w-full flex items-center justify-center gap-2"
+            >
+              <ShoppingCart size={18} />
+              Add to Cart — ${product.price}
+            </button>
 
             {/* Details */}
             <div className="space-y-4 pt-4 border-t border-border">
