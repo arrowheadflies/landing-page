@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import productsData from '../data/products.json';
-import { CONFIG } from '../config';
+
 import { ArrowLeft, ShieldCheck, Truck, Star, ShoppingCart } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 

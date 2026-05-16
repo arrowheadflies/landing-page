@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import monthlyHatches from '../data/monthlyHatches.json';
 import { Bug, ArrowRight, MapPin, Calendar, Droplets, ChevronDown } from 'lucide-react';
