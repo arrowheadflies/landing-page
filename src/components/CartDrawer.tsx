@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { X, Plus, Minus, Trash2, ShoppingBag } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import productsData from '../data/products.json';
 
 export default function CartDrawer() {
   const { cart, isCartOpen, setIsCartOpen, updateQuantity, removeFromCart } = useCart();
@@ -15,13 +16,23 @@ export default function CartDrawer() {
   const handleCheckout = async () => {
     setIsCartOpen(false);
 
-    // Filter out items that don't have a valid stripePriceId (e.g. empty or placeholder)
-    const validItems = cart.filter(
-      (item) =>
-        item.stripePriceId &&
-        item.stripePriceId.startsWith('price_') &&
-        !item.stripePriceId.includes('YOUR_')
-    );
+    // Map items to include their stripePriceId from products.json if it is missing from cart state,
+    // then filter out items that don't have a valid stripePriceId (e.g. empty or placeholder)
+    const validItems = cart
+      .map((item) => {
+        const product = productsData.find((p) => p.id === item.id);
+        const priceId = item.stripePriceId || (product && (product as any).stripePriceId);
+        return {
+          ...item,
+          stripePriceId: priceId,
+        };
+      })
+      .filter(
+        (item) =>
+          item.stripePriceId &&
+          item.stripePriceId.startsWith('price_') &&
+          !item.stripePriceId.includes('YOUR_')
+      );
 
     // If we have valid Stripe Price IDs, try to use the serverless API
     if (validItems.length > 0) {
