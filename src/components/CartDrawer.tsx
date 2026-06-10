@@ -12,17 +12,56 @@ export default function CartDrawer() {
     [cart]
   );
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     setIsCartOpen(false);
-    if (cart.length === 1) {
+
+    // Filter out items that don't have a valid stripePriceId (e.g. empty or placeholder)
+    const validItems = cart.filter(
+      (item) =>
+        item.stripePriceId &&
+        item.stripePriceId.startsWith('price_') &&
+        !item.stripePriceId.includes('YOUR_')
+    );
+
+    // If we have valid Stripe Price IDs, try to use the serverless API
+    if (validItems.length > 0) {
+      try {
+        const response = await fetch('/api/checkout', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            items: validItems.map((item) => ({
+              price: item.stripePriceId,
+              quantity: item.quantity,
+            })),
+          }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.url) {
+            window.location.href = data.url;
+            return;
+          }
+        }
+      } catch (err) {
+        console.error('Failed to create serverless checkout session:', err);
+      }
+    }
+
+    // Fallback: If the API endpoint is unavailable (e.g., in local development)
+    // or if Stripe Price IDs are not configured, use the direct Payment Link redirect.
+    if (cart.length > 0) {
       const item = cart[0];
-      const url = new URL(item.paymentLink);
-      url.searchParams.set('prefilled_quantity', item.quantity.toString());
-      window.location.href = url.toString();
-    } else if (cart.length > 1) {
-      // For multiple items, link to first item's Stripe for now
-      const item = cart[0];
-      window.location.href = item.paymentLink;
+      try {
+        const url = new URL(item.paymentLink);
+        url.searchParams.set('prefilled_quantity', item.quantity.toString());
+        window.location.href = url.toString();
+      } catch (e) {
+        window.location.href = item.paymentLink;
+      }
     }
   };
 

@@ -16,6 +16,7 @@
     "category": "flies",
     "badge": "Signature",
     "stripeBuyButtonId": "https://buy.stripe.com/4gMcN65lg0qG2ubbV404805",
+    "stripePriceId": "price_1TMefrIxcbTZggeJnb5xmbKZ",
     "image": "/media/products/Tin 1.jpeg",
     "images": [
       "/media/products/Tin 1.jpeg",
@@ -39,6 +40,7 @@
     "category": "gear",
     "badge": null,
     "stripeBuyButtonId": "https://buy.stripe.com/aFa14o6pkb5kgl13oy04806",
+    "stripePriceId": "price_1TMeibIxcbTZggeJI3mYbQfv",
     "image": "/media/products/Arrowhead Logo Sticker.jpeg",
     "images": [
       "/media/products/Arrowhead Logo Sticker.jpeg"

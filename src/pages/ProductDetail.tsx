@@ -99,7 +99,8 @@ export default function ProductDetail() {
                   id: product.id,
                   name: product.name,
                   price: product.price,
-                  paymentLink: product.stripeBuyButtonId || ''
+                  paymentLink: product.stripeBuyButtonId || '',
+                  stripePriceId: product.stripePriceId || ''
                 });
               }}
               className="btn btn-primary btn-lg w-full flex items-center justify-center gap-2"
