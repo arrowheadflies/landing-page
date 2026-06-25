@@ -148,8 +148,8 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-charcoal via-transparent to-charcoal/80" />
         </div>
 
-        <div className="container-default relative z-10">
-          <div className="max-w-2xl">
+        <div className="container-default relative z-10 flex justify-center">
+          <div className="max-w-2xl text-center">
             <p className="text-accent text-xs font-semibold tracking-[0.2em] uppercase mb-4 animate-fade-in">Our Story</p>
             <h2 className="text-4xl sm:text-6xl font-bold text-cream tracking-tight leading-[1.1] mb-8">
               Built by an angler,<br />

@@ -72,6 +72,15 @@
 }
 
 @layer components {
+  /* Hide scrollbar for horizontal month strip */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
   /* Custom Scrollbar */
   .custom-scrollbar::-webkit-scrollbar {
     width: 4px;
@@ -212,19 +221,33 @@
     }
   }
 
-  /* Container */
+  /* Container — full-width with comfortable padding */
   .container-narrow {
-    max-width: 720px;
+    width: 100%;
+    max-width: 900px;
     margin: 0 auto;
+    padding: 0 1.5rem;
   }
 
   .container-default {
-    max-width: 1080px;
-    margin: 0 auto;
+    width: 100%;
+    padding: 0 1.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .container-default {
+      padding: 0 2.5rem;
+    }
   }
 
   .container-wide {
-    max-width: 1280px;
-    margin: 0 auto;
+    width: 100%;
+    padding: 0 1.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .container-wide {
+      padding: 0 2.5rem;
+    }
   }
 }

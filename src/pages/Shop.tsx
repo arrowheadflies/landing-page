@@ -17,7 +17,7 @@ export default function Shop() {
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-cream tracking-tight mb-4 animate-fade-in-up">
             Hand-tied. Fish-tested.
           </h1>
-          <p className="text-mid-gray text-base sm:text-lg max-w-lg mx-auto leading-relaxed animate-fade-in-up delay-100">
+          <p className="text-mid-gray text-base sm:text-lg leading-relaxed animate-fade-in-up delay-100">
             Every pattern is tied by hand and tested on the water before it ships. What you see is what we fish.
           </p>
         </div>

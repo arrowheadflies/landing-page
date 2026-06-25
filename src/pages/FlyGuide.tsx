@@ -136,7 +136,7 @@ export default function FlyGuide() {
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-cream tracking-tight mb-4 animate-fade-in-up">
             The Lab
           </h1>
-          <p className="text-mid-gray text-base sm:text-lg max-w-lg mx-auto leading-relaxed animate-fade-in-up delay-100">
+          <p className="text-mid-gray text-base sm:text-lg leading-relaxed animate-fade-in-up delay-100">
             Master the art of tying with our step-by-step guides. Follow along as you build your quiver.
           </p>
         </div>
