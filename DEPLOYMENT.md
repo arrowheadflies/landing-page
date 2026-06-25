@@ -2,20 +2,18 @@
 
 **Live site:** https://arrowheadflies.com  
 **GitHub repo:** https://github.com/arrowheadflies/landing-page  
-**Hosting:** GitHub Pages (`gh-pages` branch) | **Emails:** Formspree  
+**Hosting:** Vercel (primary) | GitHub Pages (secondary) | **Emails:** Formspree  
 
 ---
 
-# Arrowhead Flies — Deployment Guide
-
 ## Overview
 
-This project uses two branches:
+This project supports two deployment platforms:
 
-- **`main`** — source code and active development
-- **`gh-pages`** — the live, built site served at your domain
+- **Vercel** — primary production deployment (recommended)
+- **GitHub Pages** — secondary deployment via `gh-pages` branch
 
-These two branches are kept **intentionally separate**. You commit code changes to `main` whenever you like, and only deploy to the live site when you're ready using `npm run deploy`.
+Both are kept in sync from the same `main` branch.
 
 ---
 
@@ -23,7 +21,7 @@ These two branches are kept **intentionally separate**. You commit code changes 
 
 ```
 main        →  Your source code (React, TypeScript, assets)
-gh-pages    →  The compiled build (index.html, assets/, brand/)
+gh-pages    →  The compiled build (index.html, assets/, brand/) — auto-managed
 ```
 
 > ⚠️ Never manually edit the `gh-pages` branch. It is always overwritten by the deploy command.
@@ -32,13 +30,24 @@ gh-pages    →  The compiled build (index.html, assets/, brand/)
 
 ## One-Time Setup
 
+### Vercel (Primary)
+
+1. Install Vercel CLI: `npm install -g vercel`
+2. Run `vercel` in the project root and follow the prompts
+3. Or connect your GitHub repo directly at [vercel.com](https://vercel.com)
+
+Vercel will automatically deploy on every push to `main`.
+
+### GitHub Pages (Secondary)
+
 Make sure your `package.json` scripts section includes the deploy command:
 
 ```json
 "scripts": {
   "dev": "vite",
-  "build": "tsc && vite build",
-  "deploy": "npm run build && npx gh-pages -d dist"
+  "build": "tsc -b && vite build",
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d dist"
 }
 ```
 
@@ -46,6 +55,14 @@ And make sure `gh-pages` is installed:
 
 ```bash
 npm install gh-pages --save-dev
+```
+
+Update `package.json` homepage field:
+
+```json
+{
+  "homepage": "https://arrowheadflies.github.io/landing-page"
+}
 ```
 
 ---
@@ -89,9 +106,26 @@ git commit -m "Update homepage hero copy"
 
 ---
 
-## Deploying to the Live Site — Pushing to `gh-pages`
+## Deploying to Production
 
-Use this when you're ready to publish your changes to the live website. This command will:
+### Option A: Vercel (Recommended)
+
+Vercel automatically deploys on every push to `main`. No manual steps needed.
+
+To trigger a manual deploy:
+
+```bash
+vercel --prod
+```
+
+Your site will be live at:
+```
+https://arrowheadflies.com
+```
+
+### Option B: GitHub Pages
+
+Use this when you're ready to publish your changes to the GitHub Pages site. This command will:
 
 1. Run TypeScript type-checking
 2. Build the production bundle via Vite
@@ -106,6 +140,13 @@ That's it. One command.
 
 > If the TypeScript build fails, the deploy will stop and nothing will be pushed to the live site — keeping your production build safe.
 
+Your site will be live at:
+```
+https://arrowheadflies.github.io/landing-page
+```
+
+GitHub Pages typically updates within **30–60 seconds** of a successful deploy.
+
 ---
 
 ## Full Example: Code Change to Live Site
@@ -118,7 +159,8 @@ git add .
 git commit -m "Add Caddis emerger fly patterns"
 git push origin main
 
-# 2. When ready to go live
+# 2. Vercel will auto-deploy within a few seconds
+# OR for GitHub Pages:
 npm run deploy
 ```
 
@@ -126,13 +168,10 @@ npm run deploy
 
 ## Checking the Live Site
 
-After running `npm run deploy`, your site will be live at:
+After deploying, your site will be live at:
 
-```
-https://arrowheadflies.com
-```
-
-GitHub Pages typically updates within **30–60 seconds** of a successful deploy.
+- **Vercel (primary):** https://arrowheadflies.com
+- **GitHub Pages (secondary):** https://arrowheadflies.github.io/landing-page
 
 ---
 
@@ -166,4 +205,6 @@ npm run build
 | DNS A Records | 185.199.108–111.153 |
 | DNS CNAME | `www` → `arrowheadflies.github.io` |
 | Email Capture | Formspree ID: `xlgwwbad` |
-| SSL | Auto-managed by GitHub Pages |
+| SSL | Auto-managed by GitHub Pages / Vercel |
+| Primary Host | Vercel |
+| Secondary Host | GitHub Pages |
